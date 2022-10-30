@@ -2,6 +2,8 @@
   height: 100vh;
 }
 
-.add_game_modal {
+.add-game-modal,
+.add-publisher-modal,
+.add-genre-modal {
   max-height: 100% !important;
 }
