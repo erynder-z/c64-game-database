@@ -28,8 +28,20 @@ exports.index = (req, res) => {
 };
 
 // Display list of all games.
-exports.game_list = (req, res) => {
-  res.send('NOT IMPLEMENTED: Game list');
+exports.game_list = (req, res, next) => {
+  Game.find({}, 'title publisher')
+    .sort({ title: 1 })
+    .populate('publisher')
+    .exec(function (err, list_games) {
+      if (err) {
+        return next(err);
+      }
+      //Successful => Render
+      res.render('game_list', {
+        title: 'Game List',
+        game_list: list_games,
+      });
+    });
 };
 
 // Display detail page for a specific game.
