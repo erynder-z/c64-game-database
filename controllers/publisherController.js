@@ -1,8 +1,21 @@
+const async = require('async');
+const Game = require('../models/game');
 const Publisher = require('../models/publisher');
 
 // Display list of all Authors.
-exports.publisher_list = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher list');
+exports.publisher_list = (req, res, next) => {
+  Publisher.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, list_publishers) {
+      if (err) {
+        return next(err);
+      }
+      //Successful, so render
+      res.render('publisher_list', {
+        title: 'Publisher List',
+        publisher_list: list_publishers,
+      });
+    });
 };
 
 // Display detail page for a specific Publisher.
