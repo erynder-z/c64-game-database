@@ -33,7 +33,7 @@ router.post('/game/:id/update', game_controller.game_update_post);
 router.get('/game/:id', game_controller.game_detail);
 
 // GET request for list of all Game items.
-router.get('/books', game_controller.game_list);
+router.get('/games', game_controller.game_list);
 
 /// PUBLISHER ROUTES ///
 
