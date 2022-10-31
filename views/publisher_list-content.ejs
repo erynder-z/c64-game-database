@@ -1,14 +1,20 @@
+<% const alphabet =
+["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+%>
 <h1><%=title%></h1>
 <ul>
-  <% if(publisher_list.length > 0){ %> <% for(const publisher of publisher_list)
-  {%>
+  <% if(publisher_list.length > 0){ %> <% alphabet.forEach((letter) => { %>
+  <h2><%=letter %></h2>
+  <% for(const publisher of publisher_list) {%> <% if
+  (publisher.name[0].toLowerCase() == letter.toLowerCase() &&
+  publisher_list.indexOf(publisher) === 0) { %> <% } %> <% if
+  (publisher.name[0].toLowerCase() == letter.toLowerCase()) { %>
   <li>
-    <a href="<%=publisher.url%>"
-      ><%=publisher.name%> <%=publisher.company_lifespan %>
+    <a href="<%=publisher.url%>">
+      <%=publisher.name%> <%=publisher.company_lifespan %>
     </a>
   </li>
-  <% } %> <% } else{ %>
+  <% } %><% } %> <% }) %> <% } else { %>
   <p>There are no publishers</p>
-
   <% } %>
 </ul>

@@ -1,11 +1,17 @@
+<% const alphabet =
+["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+%>
 <h1><%=title%></h1>
 <ul>
-  <% if(game_list.length > 0){ %> <% for(const game of game_list) {%>
+  <% if(game_list.length > 0){ %> <% alphabet.forEach((letter) => { %>
+  <h2><%=letter %></h2>
+  <% for(const game of game_list) {%> <% if (game.title[0].toLowerCase() ==
+  letter.toLowerCase() && game_list.indexOf(game) === 0) { %> <% } %> <% if
+  (game.title[0].toLowerCase() == letter.toLowerCase()) { %>
   <li>
-    <a href="<%=game.url%>"><%=game.title%></a>
+    <a href="<%=game.url%>"> <%=game.title%> </a>
   </li>
-  <% } %> <% } else{ %>
+  <% } %><% } %> <% }) %> <% } else { %>
   <p>There are no games</p>
-
   <% } %>
 </ul>
