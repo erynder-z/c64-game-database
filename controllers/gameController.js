@@ -1,7 +1,30 @@
 const Game = require('../models/game');
+const Publisher = require('../models/publisher');
+const Genre = require('../models/genre');
+const async = require('async');
 
 exports.index = (req, res) => {
-  res.send('NOT IMPLEMENTED: Site Home Page');
+  async.parallel(
+    {
+      game_count(callback) {
+        // Find all documents
+        Game.countDocuments({}, callback);
+      },
+      publisher_count(callback) {
+        Publisher.countDocuments({}, callback);
+      },
+      genre_count(callback) {
+        Genre.countDocuments({}, callback);
+      },
+    },
+    (err, results) => {
+      res.render('index', {
+        title: 'C64 game database',
+        error: err,
+        data: results,
+      });
+    }
+  );
 };
 
 // Display list of all games.
