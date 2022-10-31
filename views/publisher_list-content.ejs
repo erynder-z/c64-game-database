@@ -1,0 +1,14 @@
+<h1><%=title%></h1>
+<ul>
+  <% if(publisher_list.length > 0){ %> <% for(const publisher of publisher_list)
+  {%>
+  <li>
+    <a href="<%=publisher.url%>"
+      ><%=publisher.name%> <%=publisher.company_lifespan %>
+    </a>
+  </li>
+  <% } %> <% } else{ %>
+  <p>There are no publishers</p>
+
+  <% } %>
+</ul>
