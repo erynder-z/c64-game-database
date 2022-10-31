@@ -115,6 +115,9 @@ function createGenrePublishers(cb) {
         publisherCreate('Rainbow Arts', 1984, 1999, callback);
       },
       function (callback) {
+        publisherCreate('Activision', 1979, false, callback);
+      },
+      function (callback) {
         genreCreate('Action', callback);
       },
       function (callback) {
