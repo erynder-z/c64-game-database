@@ -1,3 +1,7 @@
+a {
+  color: #bbdefb;
+}
+
 .app-container {
   height: 100vh;
 }
@@ -12,7 +16,8 @@
   padding: 1rem;
 }
 
-.content-wrapper.index {
+.content-wrapper.index,
+.content-wrapper.game_list {
   display: flex;
   flex-direction: column;
   justify-content: center;
