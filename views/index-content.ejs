@@ -1,0 +1,17 @@
+<h1><%=title%></h1>
+<p>Welcome to yet another <em>C64 games database!</em></p>
+
+<% if(error){ %>
+<p>Error getting content</p>
+<% } else{ %>
+
+<p>The databse currently contains:</p>
+<ul>
+  <li>
+    <b><%=data.game_count%></b> Games by
+    <b><%=data.publisher_count%></b>
+    Publishers
+  </li>
+</ul>
+
+<% } %>

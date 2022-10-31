@@ -7,3 +7,15 @@
 .add-genre-modal {
   max-height: 100% !important;
 }
+
+.content-wrapper {
+  padding: 1rem;
+}
+
+.content-wrapper.index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
