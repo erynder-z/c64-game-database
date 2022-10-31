@@ -13,5 +13,22 @@ PublisherSchema.virtual('url').get(function () {
   return `/library/publisher/${this._id}`;
 });
 
+// Virtual to get the company lifespan
+PublisherSchema.virtual('company_lifespan').get(function () {
+  const lifeSpanString = `(${this.founded} -  ${this.defunct})`;
+
+  if (this.founded && this.defunct) {
+    return lifeSpanString;
+  }
+
+  if (this.founded && !this.defunct) {
+    return ` ( ${this.founded})`;
+  }
+
+  if (!this.founded && !this.defunct) {
+    return;
+  }
+});
+
 // Export model
 module.exports = mongoose.model('Publisher', PublisherSchema);
