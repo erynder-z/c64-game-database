@@ -46,7 +46,32 @@ exports.game_list = (req, res, next) => {
 
 // Display detail page for a specific game.
 exports.game_detail = (req, res) => {
-  res.send(`NOT IMPLEMENTED: Game detail: ${req.params.id}`);
+  async.parallel(
+    {
+      game(callback) {
+        Game.findById(req.params.id)
+          .populate('publisher')
+          .populate('genre')
+          .exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.game == null) {
+        // No results.
+        const err = new Error('Game not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render.
+      res.render('game_detail', {
+        title: results.game.title,
+        game: results.game,
+      });
+    }
+  );
 };
 
 // Display game create form on GET.
