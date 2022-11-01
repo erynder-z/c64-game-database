@@ -1,0 +1,17 @@
+<% const alphabet =
+["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+%>
+<h1><%=title%></h1>
+<ul>
+  <% if(genre_list.length > 0){ %> <% alphabet.forEach((letter) => { %>
+  <h2><%=letter %></h2>
+  <% for(const genre of genre_list) {%> <% if (genre.name[0].toLowerCase() ==
+  letter.toLowerCase() && genre_list.indexOf(genre) === 0) { %> <% } %> <% if
+  (genre.name[0].toLowerCase() == letter.toLowerCase()) { %>
+  <li>
+    <a href="<%=genre.url%>"> <%=genre.name%> </a>
+  </li>
+  <% } %><% } %> <% }) %> <% } else { %>
+  <p>There are no genres</p>
+  <% } %>
+</ul>
