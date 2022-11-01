@@ -9,8 +9,8 @@ const GameSchema = new Schema({
   year: { type: Number },
   summary: { type: String },
   imageURL: { type: String },
-  played_it: { type: Number },
-  liked_it: { type: Number },
+  played_it: { type: Number, default: 0 },
+  liked_it: { type: Number, default: 0 },
 });
 
 // Virtual for book's URL
