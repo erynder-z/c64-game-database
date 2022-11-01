@@ -1,0 +1,18 @@
+<% const highestYear = max_year; const lowestYear = min_year; %>
+<h1><%=title%></h1>
+<ul>
+  <% if(game_list.length > 0){ %> <% for (let currentYear = highestYear;
+  currentYear >= lowestYear; currentYear--) { %>
+  <h2><%=currentYear %></h2>
+
+  <% for(const game of game_list) {%> <% if (game.year == currentYear &&
+  game_list.indexOf(game) === 0) { %> <% } %> <% if (game.year == currentYear) {
+  %>
+  <li>
+    <a href="<%=game.url%>"> <%=game.title%> </a>
+  </li>
+
+  <% } %><% } %><% } %> <% } else { %>
+  <p>There are no games</p>
+  <% } %>
+</ul>
