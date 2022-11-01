@@ -3,7 +3,7 @@ a {
 }
 
 .app-container {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .add-game-modal,
@@ -17,10 +17,21 @@ a {
 }
 
 .content-wrapper.index,
-.content-wrapper.game_list {
+.content-wrapper.game_list,
+.content-wrapper.publisher_list,
+.game-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+}
+
+.index h1,
+.game_list h1,
+.publisher_list h1 {
   text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
 }
