@@ -35,3 +35,13 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.game-card {
+  width: 25vw;
+}
+
+@media only screen and (max-width: 599px) {
+  .game-card {
+    width: 100%;
+  }
+}
