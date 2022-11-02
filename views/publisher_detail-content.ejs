@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="publisher-card">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <span class="card-title"><h4><%=publisher.name%></h4></span>
+        <p><%=publisher.founded%> - <%=publisher.defunct %></p>
+        <h5>Games</h5>
+        <ul class="collection">
+          <% if(publisher_games.length > 0){ %> <% for(const game of
+          publisher_games) {%>
+          <li class="collection-item grey darken-3">
+            <strong><a href="<%=game.url%>"><%=game.title%></a></strong>
+          </li>
+
+          <% } %>
+        </ul>
+        <% } else { %>
+        <p>This publisher has no games</p>
+        <% } %>
+      </div>
+      <hr />
+      <p>
+        <a href="<%= publisher.url %>/delete ">Delete Publisher</a>
+      </p>
+      <p>
+        <a href="<%= publisher.url %>/update ">Update Publisher</a>
+      </p>
+    </div>
+  </div>
+</div>

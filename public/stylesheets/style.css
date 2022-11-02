@@ -36,12 +36,14 @@ a {
   flex-direction: column;
 }
 
-.game-card {
+.game-card,
+.publisher-card {
   width: 25vw;
 }
 
 @media only screen and (max-width: 599px) {
-  .game-card {
+  .game-card,
+  .publisher-card {
     width: 100%;
   }
 }
