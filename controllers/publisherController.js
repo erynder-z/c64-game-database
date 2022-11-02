@@ -19,8 +19,35 @@ exports.publisher_list = (req, res, next) => {
 };
 
 // Display detail page for a specific Publisher.
-exports.publisher_detail = (req, res) => {
-  res.send(`NOT IMPLEMENTED: Publisher detail: ${req.params.id}`);
+exports.publisher_detail = (req, res, next) => {
+  async.parallel(
+    {
+      publisher(callback) {
+        Publisher.findById(req.params.id).exec(callback);
+      },
+      publishers_games(callback) {
+        Game.find({ publisher: req.params.id }, 'title summary').exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        // Error in API usage.
+        return next(err);
+      }
+      if (results.publisher == null) {
+        // No results.
+        const err = new Error('Publisher not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render.
+      res.render('publisher_detail', {
+        title: 'Publisher Detail',
+        publisher: results.publisher,
+        publisher_games: results.publishers_games,
+      });
+    }
+  );
 };
 
 // Display Publisher create form on GET.
