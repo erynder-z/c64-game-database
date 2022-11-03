@@ -46,22 +46,27 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
         <label for="year" class="black-text">Year</label>
       </div>
       <div class="input-field col s6">
-        <select
-          id="genre"
-          type="select"
-          placeholder="Select genre"
-          name="genre"
-          required="true"
-        >
-          <% for (const genre of genres) {%> <% if (typeof game != "undefined")
-          { %> <option value="<%= genre._id%>" <% if
-          (genre._id.toString()==game.genre._id ||
-          genre._id.toString()===game.genre._id.toString()) { %> selected <% }
-          %>> <%= genre.name %> <% } else {%>
-          <option value="<%=genre.id %> "><%=genre.name %></option>
-          <% } %> <% } %>
-        </select>
-        <label class="black-text">Genre</label>
+        <div class="form-group">
+          <label for="genre" class="black-text">Genre:</label>
+          <div>
+            <% for(const genre of genres) {%>
+            <div>
+              <!-- prettier-ignore -->
+              <label >
+              <input
+                      id="<%= genre._id %>"
+                      type="checkbox" 
+                      class="filled-in"
+                      name="genre"
+                      value="<%= genre._id %>"
+                      <% if (genre.checked) { %>
+              checked="checked" <% } %> />
+              <span><%=genre.name %> </span>
+            </label>
+            </div>
+            <% } %>
+          </div>
+        </div>
       </div>
       <div class="input-field col s6">
         <div class="input-field col s12">
