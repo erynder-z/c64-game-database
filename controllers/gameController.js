@@ -40,25 +40,53 @@ exports.index = (req, res) => {
 
 // Display list of all games.
 exports.game_list = (req, res, next) => {
-  Game.find({}, 'title publisher')
-    .sort({ title: 1 })
-    .populate('publisher')
-    .exec(function (err, list_games) {
+  async.parallel(
+    // get all publishers and genres to pass in the add game modal that is loaded on start
+    {
+      publishers(callback) {
+        Publisher.find(callback);
+      },
+      genres(callback) {
+        Genre.find(callback);
+      },
+      list_games(callback) {
+        Game.find({}, 'title publisher')
+          .sort({ title: 1 })
+          .populate('publisher')
+          .exec(callback);
+      },
+    },
+    (err, results) => {
       if (err) {
         return next(err);
       }
-      //Successful => Render
+      if (results.list_games == null) {
+        // No results.
+        const err = new Error('Game not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render.
       res.render('game_list', {
         title: 'Game List',
-        game_list: list_games,
+        publishers: results.publishers,
+        genres: results.genres,
+        game_list: results.list_games,
       });
-    });
+    }
+  );
 };
 
 // Display detail page for a specific game.
 exports.game_detail = (req, res) => {
   async.parallel(
     {
+      publishers(callback) {
+        Publisher.find(callback);
+      },
+      genres(callback) {
+        Genre.find(callback);
+      },
       game(callback) {
         Game.findById(req.params.id)
           .populate('publisher')
@@ -79,6 +107,8 @@ exports.game_detail = (req, res) => {
       // Successful, so render.
       res.render('game_detail', {
         title: results.game.title,
+        publishers: results.publishers,
+        genres: results.genres,
         game: results.game,
       });
     }
