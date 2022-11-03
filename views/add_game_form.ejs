@@ -1,3 +1,7 @@
+<!-- prettier-ignore -->
+<% publishers.sort(function(a, b) {let textA = a.name.toUpperCase(); 
+let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});%>
+
 <div class="row">
   <form class="col s12">
     <div class="row">
@@ -11,13 +15,24 @@
         <label for="title" class="black-text">Title</label>
       </div>
       <div class="input-field col s6">
-        <input
-          placeholder="Name of publisher"
+        <!-- prettier-ignore -->
+        <select
           id="publisher"
-          type="text"
-          class="validate"
-        />
-        <label for="publisher" class="black-text">Publisher</label>
+          type="select"
+          placeholder="Select publisher"
+          name="publisher"
+          required="true"
+        >
+           <% for (const publisher of publishers) {%> 
+           <% if (typeof game != "undefined") { %> 
+           <option value="<%= publisher._id%>"
+           <% if (publisher._id.toString()==game.publisher._id || publisher._id.toString()===game.publisher._id.toString()) { %>
+          selected <% } %>> <%= publisher.name %> <% } else {%>
+          <option value="<%=publisher.id %> "><%=publisher.name %></option>
+          <% } %> <% } %>
+        </select>
+
+        <label class="black-text">Publisher</label>
       </div>
     </div>
     <div class="row">
@@ -31,11 +46,20 @@
         <label for="year" class="black-text">Year</label>
       </div>
       <div class="input-field col s6">
-        <select>
-          <option value="" disabled selected>Select genre</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
+        <select
+          id="genre"
+          type="select"
+          placeholder="Select genre"
+          name="genre"
+          required="true"
+        >
+          <% for (const genre of genres) {%> <% if (typeof game != "undefined")
+          { %> <option value="<%= genre._id%>" <% if
+          (genre._id.toString()==game.genre._id ||
+          genre._id.toString()===game.genre._id.toString()) { %> selected <% }
+          %>> <%= genre.name %> <% } else {%>
+          <option value="<%=genre.id %> "><%=genre.name %></option>
+          <% } %> <% } %>
         </select>
         <label class="black-text">Genre</label>
       </div>
