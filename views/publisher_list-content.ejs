@@ -3,11 +3,11 @@
 %>
 <h1><%=title%></h1>
 <ul>
-  <% if(publisher_list.length > 0){ %> <% alphabet.forEach((letter) => { %>
+  <% if(publishers.length > 0){ %> <% alphabet.forEach((letter) => { %>
   <h2><%=letter %></h2>
-  <% for(const publisher of publisher_list) {%> <% if
+  <% for(const publisher of publishers) {%> <% if
   (publisher.name[0].toLowerCase() == letter.toLowerCase() &&
-  publisher_list.indexOf(publisher) === 0) { %> <% } %> <% if
+  publishers.indexOf(publisher) === 0) { %> <% } %> <% if
   (publisher.name[0].toLowerCase() == letter.toLowerCase()) { %>
   <li>
     <a href="<%=publisher.url%>">
