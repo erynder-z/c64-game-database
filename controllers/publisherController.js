@@ -1,27 +1,54 @@
 const async = require('async');
 const Game = require('../models/game');
+const Genre = require('../models/genre');
 const Publisher = require('../models/publisher');
 
-// Display list of all Authors.
+// Display list of all Publishers.
 exports.publisher_list = (req, res, next) => {
-  Publisher.find()
-    .sort([['name', 'ascending']])
-    .exec(function (err, list_publishers) {
+  async.parallel(
+    {
+      genres(callback) {
+        Genre.find(callback);
+      },
+      list_publishers(callback) {
+        Publisher.find()
+          .sort([['name', 'ascending']])
+          .exec(callback);
+      },
+    },
+    (err, results) => {
       if (err) {
         return next(err);
       }
-      //Successful, so render
+      if (results.list_publishers == null) {
+        // No results.
+        const err = new Error('Publisher not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Successful, so render.
       res.render('publisher_list', {
         title: 'Publisher List',
-        publisher_list: list_publishers,
+
+        genres: results.genres,
+        publishers: results.list_publishers,
       });
-    });
+    }
+  );
 };
 
 // Display detail page for a specific Publisher.
 exports.publisher_detail = (req, res, next) => {
   async.parallel(
     {
+      genres(callback) {
+        Genre.find(callback);
+      },
+      // get all publishers for the modal selectboxes
+      publishers(callback) {
+        Publisher.find(callback);
+      },
+      // get the desired publishers' details
       publisher(callback) {
         Publisher.findById(req.params.id).exec(callback);
       },
@@ -43,6 +70,8 @@ exports.publisher_detail = (req, res, next) => {
       // Successful, so render.
       res.render('publisher_detail', {
         title: 'Publisher Detail',
+        genres: results.genres,
+        publishers: results.publishers,
         publisher: results.publisher,
         publisher_games: results.publishers_games,
       });
