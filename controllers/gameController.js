@@ -17,22 +17,13 @@ exports.index = (req, res) => {
       genre_count(callback) {
         Genre.countDocuments({}, callback);
       },
-      publishers(callback) {
-        Publisher.find(callback);
-      },
-      genres(callback) {
-        Genre.find(callback);
-      },
     },
     (err, results) => {
       res.render('index', {
         title: 'C64 game database',
         error: err,
-        game_count: results.game_count,
         publisher_count: results.publisher_count,
-        genre_count: results.genre_count,
-        publishers: results.publishers,
-        genres: results.genres,
+        game_count: results.game_count,
       });
     }
   );
@@ -40,53 +31,25 @@ exports.index = (req, res) => {
 
 // Display list of all games.
 exports.game_list = (req, res, next) => {
-  async.parallel(
-    // get all publishers and genres to pass in the add game modal that is loaded on start
-    {
-      publishers(callback) {
-        Publisher.find(callback);
-      },
-      genres(callback) {
-        Genre.find(callback);
-      },
-      list_games(callback) {
-        Game.find({}, 'title publisher')
-          .sort({ title: 1 })
-          .populate('publisher')
-          .exec(callback);
-      },
-    },
-    (err, results) => {
+  Game.find({}, 'title publisher')
+    .sort({ title: 1 })
+    .populate('publisher')
+    .exec(function (err, list_games) {
       if (err) {
         return next(err);
       }
-      if (results.list_games == null) {
-        // No results.
-        const err = new Error('Game not found');
-        err.status = 404;
-        return next(err);
-      }
-      // Successful, so render.
+      //Successful => Render
       res.render('game_list', {
         title: 'Game List',
-        publishers: results.publishers,
-        genres: results.genres,
-        game_list: results.list_games,
+        game_list: list_games,
       });
-    }
-  );
+    });
 };
 
 // Display detail page for a specific game.
 exports.game_detail = (req, res) => {
   async.parallel(
     {
-      publishers(callback) {
-        Publisher.find(callback);
-      },
-      genres(callback) {
-        Genre.find(callback);
-      },
       game(callback) {
         Game.findById(req.params.id)
           .populate('publisher')
@@ -107,8 +70,6 @@ exports.game_detail = (req, res) => {
       // Successful, so render.
       res.render('game_detail', {
         title: results.game.title,
-        publishers: results.publishers,
-        genres: results.genres,
         game: results.game,
       });
     }
@@ -180,7 +141,7 @@ exports.game_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
 
-      // Get all authors and genres for form.
+      // Get all publishers and genres for form.
       async.parallel(
         {
           publishers(callback) {
@@ -212,7 +173,6 @@ exports.game_create_post = [
       );
       return;
     }
-
     // Data from form is valid. Save book.
     game.save((err) => {
       if (err) {
