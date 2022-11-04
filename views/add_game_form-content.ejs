@@ -1,0 +1,104 @@
+<!-- prettier-ignore -->
+<% publishers.sort(function(a, b) {let textA = a.name.toUpperCase(); 
+let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});%>
+
+<div class="row">
+  <form class="col s12" action="" method="post">
+    <div class="row">
+      <div class="input-field col s6">
+        <!-- prettier-ignore -->
+        <input placeholder="Title of game" id="title" name="title" type="text"
+        class="validate" required="true" 
+        value="<% if (typeof game =="undefined") { %><% } else { %><%=game.title %><% } %>"
+        />
+        <label for="title" class="black-text">Title</label>
+      </div>
+      <div class="input-field col s6">
+        <!-- prettier-ignore -->
+        <select
+          id="publisher"
+          name="publisher"
+          type="select"
+          placeholder="Select publisher"
+          required="true"
+        >
+           <% for (const publisher of publishers) {%> 
+           <% if (typeof game != "undefined") { %> 
+           <option value="<%= publisher._id%>"
+           <% if (publisher._id.toString()==game.publisher._id || publisher._id.toString()===game.publisher._id.toString()) { %>
+          selected <% } %>> <%= publisher.name %> <% } else {%>
+          <option value="<%=publisher.id %> "><%=publisher.name %></option>
+          <% } %> <% } %>
+        </select>
+
+        <label class="black-text">Publisher</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <!-- prettier-ignore -->
+        <input placeholder="Year published" id="year" name="year" type="number"
+        class="validate" value="<% if (typeof game == "undefined") { %>
+        <% } else { %><%=game.year %><% } %>" />
+        <label for="year" class="black-text">Year</label>
+      </div>
+      <div class="input-field col s6">
+        <div class="form-group">
+          <label for="genre" class="black-text">Genre:</label>
+          <div>
+            <% for(const genre of genres) {%>
+            <div>
+              <!-- prettier-ignore -->
+              <label >
+              <input
+                      id="<%= genre._id %>"
+                      name="genre"
+                      type="checkbox" 
+                      class="filled-in"
+                      value="<%= genre._id %>"
+                      <% if (genre.checked) { %>
+                      checked="checked" <% } %> />
+              <span><%=genre.name %> </span>
+            </label>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <div class="input-field col s6">
+        <div class="input-field col s12">
+          <!-- prettier-ignore -->
+          <textarea
+            id="summary"
+            name="summary"
+            placeholder="What the game is about"
+            class="materialize-textarea"
+            required="true"
+          > 
+          <% if (typeof game == "undefined") { %><% } else { %> <%=game.summary%><% } %>
+          </textarea>
+          <label for="summary" class="black-text">Summary</label>
+        </div>
+      </div>
+      <div class="input-field col s6">
+        <div class="file-field input-field">
+          <div class="btn">
+            <span>Add image</span>
+            <input type="file" />
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer blue lighten-5">
+      <!-- <a type="submit" class="modal-close waves-effect waves-green btn"
+        >Submit</a
+      > -->
+      <button type="submit" class="modal-close waves-effect waves-green btn">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

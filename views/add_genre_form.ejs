@@ -1,15 +1,13 @@
-<div class="row">
-  <form class="col s12">
-    <div class="row">
-      <div class="input-field col s6">
-        <input
-          placeholder="Name of genre"
-          id="genreName"
-          type="text"
-          class="validate"
-        />
-        <label for="genreName" class="black-text">Name</label>
-      </div>
-    </div>
-  </form>
+<!-- Modal Structure -->
+<div
+  id="addGenreModal"
+  class="modal bottom-sheet add-genre-modal blue lighten-5"
+>
+  <div class="modal-content">
+    <h4>Add new genre</h4>
+    <%- include("add_genre_form-content") %>
+  </div>
+  <div class="modal-footer blue lighten-5">
+    <a href="#!" class="modal-close waves-effect waves-green btn">Submit</a>
+  </div>
 </div>
