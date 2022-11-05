@@ -1,3 +1,4 @@
+const { body, validationResult } = require('express-validator');
 const async = require('async');
 const Game = require('../models/game');
 const Publisher = require('../models/publisher');
@@ -52,13 +53,61 @@ exports.publisher_detail = (req, res, next) => {
 
 // Display Publisher create form on GET.
 exports.publisher_create_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher create GET');
+  res.render('add_publisher_form', { title: 'Create Publisher' });
 };
 
 // Handle Publisher create on POST.
-exports.publisher_create_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher create POST');
-};
+exports.publisher_create_post = [
+  // Validate and sanitize fields.
+  body('publisherName')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Name must be specified.'),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/errors messages.
+      res.render('add_publisher_form', {
+        title: 'Create Publisher',
+        publisher: req.body,
+        errors: errors.array(),
+      });
+      return;
+    } // Data from form is valid.
+    // Check if Author with same name already exists.
+    Publisher.findOne({
+      name: req.body.publisherName,
+    }).exec((err, found_publisher) => {
+      if (err) {
+        return next(err);
+      }
+
+      if (found_publisher) {
+        // Author exists, redirect to its detail page.
+        res.redirect(found_publisher.url);
+      } else {
+        // Create an Author object with escaped and trimmed data.
+        const publisher = new Publisher({
+          name: req.body.publisherName,
+          founded: req.body.founded,
+          defunct: req.body.defunct,
+        });
+        publisher.save((err) => {
+          if (err) {
+            return next(err);
+          }
+          // Successful - redirect to new author record.
+          res.redirect(publisher.url);
+        });
+      }
+    });
+  },
+];
 
 // Display Publisher delete form on GET.
 exports.publisher_delete_get = (req, res) => {
