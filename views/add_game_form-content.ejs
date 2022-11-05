@@ -49,7 +49,7 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
             <% for(const genre of genres) {%>
             <div>
               <!-- prettier-ignore -->
-              <label >
+              <label class="black-text">
               <input
                       id="<%= genre._id %>"
                       name="genre"
@@ -74,9 +74,7 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
             placeholder="What the game is about"
             class="materialize-textarea"
             required="true"
-          > 
-          <% if (typeof game == "undefined") { %><% } else { %> <%=game.summary%><% } %>
-          </textarea>
+          ><% if (typeof game == "undefined") { %><% } else { %><%=game.summary%><% } %></textarea>
           <label for="summary" class="black-text">Summary</label>
         </div>
       </div>
@@ -92,13 +90,9 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
         </div>
       </div>
     </div>
-    <div class="modal-footer blue lighten-5">
-      <!-- <a type="submit" class="modal-close waves-effect waves-green btn"
-        >Submit</a
-      > -->
-      <button type="submit" class="modal-close waves-effect waves-green btn">
-        Submit
-      </button>
-    </div>
+
+    <button type="submit" class="modal-close waves-effect waves-green btn">
+      Submit
+    </button>
   </form>
 </div>

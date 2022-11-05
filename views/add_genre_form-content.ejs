@@ -1,15 +1,20 @@
 <div class="row">
-  <form class="col s12">
+  <form class="col s12" action="" method="post">
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12">
         <input
           placeholder="Name of genre"
           id="genreName"
+          name="genreName"
           type="text"
           class="validate"
         />
-        <label for="genreName" class="black-text">Name</label>
+        <label for="genreName" name="genreName" class="black-text">Name</label>
       </div>
     </div>
+
+    <button type="submit" class="modal-close waves-effect waves-green btn">
+      Submit
+    </button>
   </form>
 </div>

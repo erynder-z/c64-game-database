@@ -1,13 +1,15 @@
-<!-- Modal Structure -->
-<div
-  id="addGenreModal"
-  class="modal bottom-sheet add-genre-modal blue lighten-5"
->
-  <div class="modal-content">
-    <h4>Add new genre</h4>
-    <%- include("add_genre_form-content") %>
-  </div>
-  <div class="modal-footer blue lighten-5">
-    <a href="#!" class="modal-close waves-effect waves-green btn">Submit</a>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+  <%- include('head') %>
+  <body>
+    <div class="app-container blue darken-2">
+      <%- include('navbar') %> <%- include('fab') %>
+      <div class="content-wrapper index blue-text text-lighten-4">
+        <h4>Add new game</h4>
+        <%- include("add_genre_form-content") %>
+      </div>
+    </div>
+    <!--JavaScript at end of body for optimized loading-->
+    <%- include('body-scripts') %>
+  </body>
+</html>
