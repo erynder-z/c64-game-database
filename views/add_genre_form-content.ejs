@@ -1,3 +1,4 @@
+<!-- prettier-ignore -->
 <div class="row">
   <form class="col s12" action="" method="post">
     <div class="row">
@@ -8,6 +9,7 @@
           name="genreName"
           type="text"
           class="validate"
+          value="<% if (typeof genre =="undefined") { %><% } else { %><%=genre.name %><% } %>"
         />
         <label for="genreName" name="genreName" class="black-text">Name</label>
       </div>
