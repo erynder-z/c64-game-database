@@ -1,0 +1,18 @@
+<h1><%= title %>: <%= game.title %></h1>
+
+<p><strong>Do you really want to delete this game?</strong></p>
+<form class="col s12" action="" method="post">
+  <div class="form-group">
+    <input
+      id="gameid"
+      class="form-control"
+      type="hidden"
+      name="gameid"
+      required="true"
+      value="<%= game._id %>"
+    />
+  </div>
+  <button type="submit" class="modal-close waves-effect waves-green btn">
+    Submit
+  </button>
+</form>
