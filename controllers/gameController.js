@@ -186,12 +186,39 @@ exports.game_create_post = [
 
 // Display game delete form on GET.
 exports.game_delete_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Game delete GET');
+  Game.findById(req.params.id)
+    .populate('publisher')
+    .populate('genre')
+    .exec(function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      //Successful => Render
+      res.render('game_delete', {
+        title: 'Delete Game',
+        game: result,
+      });
+    });
 };
 
 // Handle game delete on POST.
 exports.game_delete_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Game delete POST');
+  Game.findById(req.params.id)
+    .populate('publisher')
+    .populate('genre')
+    .exec(function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      // Success. Delete object and redirect to the list of bookinstances.
+      Game.findByIdAndRemove(req.body.gameid, (err) => {
+        if (err) {
+          return next(err);
+        }
+        // Success - go to game list
+        res.redirect('/library/games');
+      });
+    });
 };
 
 // Display game update form on GET.
