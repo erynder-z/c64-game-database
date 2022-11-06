@@ -104,12 +104,68 @@ exports.genre_create_post = [
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Genre delete GET');
+  async.parallel(
+    {
+      genre(callback) {
+        Genre.findById(req.params.id).exec(callback);
+      },
+      genre_books(callback) {
+        Game.find({ genre: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.genre == null) {
+        // No results.
+        res.redirect('/library/genres');
+      }
+      // Successful, so render.
+      res.render('genre_delete', {
+        title: 'Delete Genre',
+        genre: results.genre,
+        genre_games: results.genre_games,
+      });
+    }
+  );
 };
 
 // Handle Genre delete on POST.
 exports.genre_delete_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Genre delete POST');
+  async.parallel(
+    {
+      genre(callback) {
+        Genre.findById(req.body.genreid).exec(callback);
+      },
+      genre_games(callback) {
+        Game.find({ genre: req.body.genreid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      // Success
+      if (results.genre_games.length > 0) {
+        // Genre has books. Render in same way as for GET route.
+        res.render('genre_delete', {
+          title: 'Delete Genre',
+          genre: results.genre,
+          genre_games: results.genre_games,
+        });
+        return;
+      }
+      // Genre has no books. Delete object and redirect to the list of genres.
+      Genre.findByIdAndRemove(req.body.genreid, (err) => {
+        if (err) {
+          return next(err);
+        }
+        // Success - go to author list
+        res.redirect('/library/genres');
+      });
+    }
+  );
 };
 
 // Display Genre update form on GET.
