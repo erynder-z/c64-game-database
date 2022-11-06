@@ -1,0 +1,18 @@
+<h1><%= title %>: <%= publisher.name %></h1>
+
+<p><strong>Do you really want to delete this publisher?</strong></p>
+<form class="col s12" action="" method="post">
+  <div class="form-group">
+    <input
+      id="publisherid"
+      class="form-control"
+      type="hidden"
+      name="publisherid"
+      required="true"
+      value="<%= publisher._id %>"
+    />
+  </div>
+  <button type="submit" class="modal-close waves-effect waves-green btn">
+    Submit
+  </button>
+</form>
