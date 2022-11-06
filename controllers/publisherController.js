@@ -111,12 +111,68 @@ exports.publisher_create_post = [
 
 // Display Publisher delete form on GET.
 exports.publisher_delete_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher delete GET');
+  async.parallel(
+    {
+      publisher(callback) {
+        Publisher.findById(req.params.id).exec(callback);
+      },
+      publishers_games(callback) {
+        Game.find({ publisher: req.params.id }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.publisher == null) {
+        // No results.
+        res.redirect('/library/publishers');
+      }
+      // Successful, so render.
+      res.render('publisher_delete', {
+        title: 'Delete Publisher',
+        publisher: results.publisher,
+        publisher_games: results.publishers_games,
+      });
+    }
+  );
 };
 
 // Handle Publisher delete on POST.
 exports.publisher_delete_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher delete POST');
+  async.parallel(
+    {
+      publisher(callback) {
+        Publisher.findById(req.body.publisherid).exec(callback);
+      },
+      publishers_games(callback) {
+        Game.find({ publisher: req.body.publisherid }).exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      // Success
+      if (results.publishers_games.length > 0) {
+        // Publisher has games. Render in same way as for GET route.
+        res.render('publisher_delete', {
+          title: 'Delete Publisher',
+          publisher: results.publisher,
+          publisher_games: results.publishers_games,
+        });
+        return;
+      }
+      // Publisher has no games. Delete object and redirect to the list of publishers.
+      Publisher.findByIdAndRemove(req.body.publisherid, (err) => {
+        if (err) {
+          return next(err);
+        }
+        // Success - go to author list
+        res.redirect('/library/publishers');
+      });
+    }
+  );
 };
 
 // Display Publisher update form on GET.
