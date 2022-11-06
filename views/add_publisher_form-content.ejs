@@ -1,10 +1,15 @@
+<!-- prettier-ignore -->
 <div class="row">
   <form class="col s12" action="" method="post">
     <div class="row">
       <div class="input-field col s12">
-        <input placeholder="Name of publisher" id="publisherName"
-        name="publisherName" type="text" class="validate" value="<% if (typeof
-        publisher =="undefined") { %><% } else { %><%=publisher.name %><% } %>"
+        <input
+          placeholder="Name of publisher"
+          id="publisherName"
+          name="publisherName"
+          type="text"
+          class="validate"
+          value="<% if (typeof publisher =="undefined") { %><% } else { %><%=publisher.name %><% } %>"
         />
         <label for="publisherName" name="publisherName" class="black-text"
           >Name</label
@@ -13,17 +18,27 @@
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input placeholder="Company founded year" id="founded" name="founded"
-        type="number" class="validate" value="<% if (typeof publisher
-        =="undefined") { %><% } else { %><%=publisher.founded %><% } %>" />
+        <input
+          placeholder="Company founded year"
+          id="founded"
+          name="founded"
+          type="number"
+          class="validate"
+          value="<% if (typeof publisher =="undefined") { %><% } else { %><%=publisher.founded %><% } %>"
+        />
         <label for="founded" name="founded" class="black-text">Founded</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input placeholder="Company defunct year" id="defunct" name="defunct"
-        type="number" class="validate" value="<% if (typeof publisher
-        =="undefined") { %><% } else { %><%=publisher.defunct %><% } %>" />
+        <input
+          placeholder="Company defunct year"
+          id="defunct"
+          name="defunct"
+          type="number"
+          class="validate"
+          value="<% if (typeof publisher =="undefined") { %><% } else { %><%=publisher.defunct %><% } %>"
+        />
         <label for="defunct" name="defunct" class="black-text">Defunct</label>
       </div>
     </div>
