@@ -177,10 +177,84 @@ exports.publisher_delete_post = (req, res) => {
 
 // Display Publisher update form on GET.
 exports.publisher_update_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher update GET');
+  // Get game, publishers and genres for form.
+  async.parallel(
+    {
+      publisher(callback) {
+        Publisher.findById(req.params.id).exec(callback);
+      },
+      publishers_games(callback) {
+        Publisher.find({ publisher: req.params.id }, 'title summary').exec(
+          callback
+        );
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      if (results.publisher == null) {
+        // No results.
+        const err = new Error('Publisher not found');
+        err.status = 404;
+        return next(err);
+      }
+
+      // Success.
+      res.render('add_publisher_form', {
+        title: 'Update Publisher',
+        publisher: results.publisher,
+        publisher_games: results.publishers_games,
+      });
+    }
+  );
 };
 
 // Handle Publisher update on POST.
-exports.publisher_update_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Publisher update POST');
-};
+exports.publisher_update_post = [
+  // Validate and sanitize fields.
+  body('publisherName')
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage('Name must be specified.'),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a publisher object with escaped and trimmed data.
+    const publisher = new Publisher({
+      name: req.body.publisherName,
+      founded: req.body.founded,
+      defunct: req.body.defunct,
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values and error messages.
+      res.render('add_publisher_form', {
+        title: 'Update Publisher',
+        publisher: publisher,
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Publisher.findByIdAndUpdate(
+      req.params.id,
+      publisher,
+      {},
+      (err, thePublisher) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to book detail page.
+        res.redirect(thePublisher.url);
+      }
+    );
+  },
+];
