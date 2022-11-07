@@ -33,6 +33,9 @@ router.post('/game/:id/update', game_controller.game_update_post);
 // POST request to update Game-played_it.
 router.post('/game/:id/played_it', game_controller.game_played_it_post);
 
+// POST request to update Game-liked_it.
+router.post('/game/:id/liked_it', game_controller.game_liked_it_post);
+
 // GET request for one Game.
 router.get('/game/:id', game_controller.game_detail);
 

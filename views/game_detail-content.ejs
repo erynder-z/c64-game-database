@@ -34,9 +34,10 @@
         </div>
         <div class="card-action">
           <form action="<%= game.url %>/played_it " method="post">
-            <!--    <button type="submit">played it</button> -->
             <a href="javascript:;" onclick="parentNode.submit();"> played it</a>
-            <a href="#"> liked_it</a>
+          </form>
+          <form action="<%= game.url %>/liked_it " method="post">
+            <a href="javascript:;" onclick="parentNode.submit();"> liked it</a>
           </form>
         </div>
       </div>

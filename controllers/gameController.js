@@ -3,6 +3,7 @@ const Game = require('../models/game');
 const Publisher = require('../models/publisher');
 const Genre = require('../models/genre');
 const async = require('async');
+const game = require('../models/game');
 
 exports.index = (req, res) => {
   async.parallel(
@@ -357,3 +358,31 @@ exports.game_update_post = [
     });
   },
 ];
+
+exports.game_played_it_post = (req, res) => {
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $inc: { played_it: 1 } },
+    function (err, theGame) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect(theGame.url);
+      }
+    }
+  );
+};
+
+exports.game_liked_it_post = (req, res) => {
+  Game.findByIdAndUpdate(
+    req.params.id,
+    { $inc: { liked_it: 1 } },
+    function (err, theGame) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.redirect(theGame.url);
+      }
+    }
+  );
+};
