@@ -3,7 +3,6 @@ const Game = require('../models/game');
 const Publisher = require('../models/publisher');
 const Genre = require('../models/genre');
 const async = require('async');
-const game = require('../models/game');
 
 exports.index = (req, res) => {
   async.parallel(
@@ -131,13 +130,17 @@ exports.game_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped and trimmed data.
+    // Create a Game object with escaped and trimmed data.
     const game = new Game({
       title: req.body.title,
       publisher: req.body.publisher,
       summary: req.body.summary,
       genre: req.body.genre,
       year: req.body.year,
+      img: {
+        data: req.file?.buffer,
+        contentType: req.file?.mimetype,
+      },
     });
 
     if (!errors.isEmpty()) {

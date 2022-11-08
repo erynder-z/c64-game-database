@@ -8,9 +8,12 @@ const GameSchema = new Schema({
   genre: [{ type: Schema.Types.ObjectId, ref: 'Genre' }],
   year: { type: Number },
   summary: { type: String },
-  imageURL: { type: String },
   played_it: { type: Number, default: 0 },
   liked_it: { type: Number, default: 0 },
+  img: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 // Virtual for book's URL

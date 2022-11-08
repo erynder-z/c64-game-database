@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage, limits: { fileSize: 1000000 } }); // max 1 mb
+
 // Require controller modules.
 const game_controller = require('../controllers/gameController');
 const publisher_controller = require('../controllers/publisherController');
@@ -16,7 +20,11 @@ router.get('/', game_controller.index);
 router.get('/game/create', game_controller.game_create_get);
 
 // POST request for creating Game.
-router.post('/game/create', game_controller.game_create_post);
+router.post(
+  '/game/create',
+  upload.single('imagePicker'),
+  game_controller.game_create_post
+);
 
 // GET request to delete Game.
 router.get('/game/:id/delete', game_controller.game_delete_get);

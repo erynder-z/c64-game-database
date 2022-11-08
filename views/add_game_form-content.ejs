@@ -3,7 +3,7 @@
 let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});%>
 
 <div class="row">
-  <form class="col s12" action="" method="post">
+  <form class="col s12" action="" method="post" enctype="multipart/form-data">
     <div class="row">
       <div class="input-field col s6">
         <!-- prettier-ignore -->
@@ -82,7 +82,7 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
         <div class="file-field input-field">
           <div class="btn">
             <span>Add image</span>
-            <input type="file" />
+            <input type="file" name="imagePicker" />
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text" />
