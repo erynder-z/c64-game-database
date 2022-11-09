@@ -36,7 +36,11 @@ router.post('/game/:id/delete', game_controller.game_delete_post);
 router.get('/game/:id/update', game_controller.game_update_get);
 
 // POST request to update Game.
-router.post('/game/:id/update', game_controller.game_update_post);
+router.post(
+  '/game/:id/update',
+  upload.single('imagePicker'),
+  game_controller.game_update_post
+);
 
 // POST request to update Game-played_it.
 router.post('/game/:id/played_it', game_controller.game_played_it_post);

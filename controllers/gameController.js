@@ -311,6 +311,10 @@ exports.game_update_post = [
       summary: req.body.summary,
       genre: typeof req.body.genre === 'undefined' ? [] : req.body.genre,
       year: req.body.year,
+      img: {
+        data: req.file?.buffer,
+        contentType: req.file?.mimetype,
+      },
       _id: req.params.id, //This is required, or a new ID will be assigned!
     });
 
