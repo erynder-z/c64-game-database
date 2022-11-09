@@ -198,11 +198,19 @@ exports.game_delete_get = (req, res) => {
       if (err) {
         return next(err);
       }
-      //Successful => Render
-      res.render('game_delete', {
-        title: 'Delete Game',
-        game: result,
-      });
+      if (result.isLocked) {
+        //locked game => prevent deletion
+        res.render('unable_delete', {
+          title: 'Unable to delete',
+          game: result,
+        });
+      } else {
+        //unlocked game => Render game delete
+        res.render('game_delete', {
+          title: 'Delete Game',
+          game: result,
+        });
+      }
     });
 };
 
