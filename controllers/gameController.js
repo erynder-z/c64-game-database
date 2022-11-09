@@ -132,6 +132,7 @@ exports.game_create_post = [
 
     // Create a Game object with escaped and trimmed data.
     const game = new Game({
+      isLocked: false,
       title: req.body.title,
       publisher: req.body.publisher,
       summary: req.body.summary,
@@ -200,7 +201,7 @@ exports.game_delete_get = (req, res) => {
       }
       if (result.isLocked) {
         //locked game => prevent deletion
-        res.render('unable_delete', {
+        res.render('unable_action', {
           title: 'Unable to delete',
           game: result,
         });
@@ -271,12 +272,20 @@ exports.game_update_get = (req, res) => {
           }
         }
       }
-      res.render('add_game_form', {
-        title: 'Update Game',
-        publishers: results.publishers,
-        genres: results.genres,
-        game: results.game,
-      });
+      if (results.game.isLocked) {
+        //locked game => prevent update
+        res.render('unable_action', {
+          title: 'Unable to update',
+          game: results.game,
+        });
+      } else {
+        res.render('add_game_form', {
+          title: 'Update Game',
+          publishers: results.publishers,
+          genres: results.genres,
+          game: results.game,
+        });
+      }
     }
   );
 };
@@ -314,6 +323,7 @@ exports.game_update_post = [
 
     // Create a Book object with escaped/trimmed data and old id.
     const game = new Game({
+      isLocked: false,
       title: req.body.title,
       publisher: req.body.publisher,
       summary: req.body.summary,
