@@ -12,7 +12,19 @@
         <img class="game_card-image" src="/images/placeholder.png" alt="" />
         <% } %>
         <div class="card-content white-text">
-          <span class="card-title"> <strong><%=game.title %></strong></span>
+          <span class="card-title">
+            <strong
+              ><%=game.title %> <% if (game.isLocked) { %>
+              <a href="<%= game.url %>/unlock ">
+                <i class="material-icons">lock </i></a
+              >
+              <% } else { %>
+              <a href="<%= game.url %>/lock ">
+                <i class="material-icons">lock_open </i></a
+              >
+              <% } %>
+            </strong></span
+          >
           <p>
             <strong>Publisher:</strong>
             <a href="<%=game.publisher.url%> "><%=game.publisher.name%></a>

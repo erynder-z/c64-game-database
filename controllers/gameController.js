@@ -411,3 +411,131 @@ exports.game_liked_it_post = (req, res) => {
     }
   );
 };
+
+exports.game_lock_get = (req, res) => {
+  Game.findById(req.params.id)
+    .populate('publisher')
+    .populate('genre')
+    .exec(function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      res.render('confirm_action_form', {
+        title: 'Lock Game',
+        game: result,
+      });
+    });
+};
+
+exports.game_lock_post = [
+  // Validate and sanitize fields.
+  body('passwordInput')
+    .custom((value, { req }) => {
+      if (value !== 'superpassword') {
+        throw new Error('Wrong password');
+      }
+
+      // Indicates the success of this synchronous custom validator
+      return true;
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    const game = new Game({
+      isLocked: true,
+      title: req.body.title,
+      publisher: req.body.publisher,
+      summary: req.body.summary,
+      genre: typeof req.body.genre === 'undefined' ? [] : req.body.genre,
+      year: req.body.year,
+      img: {
+        data: req.file?.buffer,
+        contentType: req.file?.mimetype,
+      },
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      //TOTO HANDLE ERROR
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Game.findByIdAndUpdate(req.params.id, game, {}, (err, theGame) => {
+      if (err) {
+        return next(err);
+      }
+
+      // Successful: redirect to book detail page.
+      res.redirect(theGame.url);
+    });
+  },
+];
+
+exports.game_unlock_get = (req, res) => {
+  Game.findById(req.params.id)
+    .populate('publisher')
+    .populate('genre')
+    .exec(function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      res.render('confirm_action_form', {
+        title: 'Unlock Game',
+        game: result,
+      });
+    });
+};
+
+exports.game_unlock_post = [
+  // Validate and sanitize fields.
+  body('passwordInput')
+    .custom((value, { req }) => {
+      if (value !== 'superpassword') {
+        throw new Error('Wrong password');
+      }
+
+      // Indicates the success of this synchronous custom validator
+      return true;
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    const game = new Game({
+      isLocked: false,
+      title: req.body.title,
+      publisher: req.body.publisher,
+      summary: req.body.summary,
+      genre: typeof req.body.genre === 'undefined' ? [] : req.body.genre,
+      year: req.body.year,
+      img: {
+        data: req.file?.buffer,
+        contentType: req.file?.mimetype,
+      },
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      //TOTO HANDLE ERROR
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Game.findByIdAndUpdate(req.params.id, game, {}, (err, theGame) => {
+      if (err) {
+        return next(err);
+      }
+
+      // Successful: redirect to book detail page.
+      res.redirect(theGame.url);
+    });
+  },
+];
