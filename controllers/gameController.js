@@ -459,8 +459,21 @@ exports.game_lock_post = [
       _id: req.params.id, //This is required, or a new ID will be assigned!
     });
 
+    // if there are errors => re-render and display error message
     if (!errors.isEmpty()) {
-      //TOTO HANDLE ERROR
+      Game.findById(req.params.id)
+        .populate('publisher')
+        .populate('genre')
+        .exec(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.render('confirm_action_form', {
+            title: 'Lock Game',
+            game: result,
+            errors: errors.array(),
+          });
+        });
       return;
     }
 
@@ -523,8 +536,21 @@ exports.game_unlock_post = [
       _id: req.params.id, //This is required, or a new ID will be assigned!
     });
 
+    // if there are errors => re-render and display error message
     if (!errors.isEmpty()) {
-      //TOTO HANDLE ERROR
+      Game.findById(req.params.id)
+        .populate('publisher')
+        .populate('genre')
+        .exec(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.render('confirm_action_form', {
+            title: 'Lock Game',
+            game: result,
+            errors: errors.array(),
+          });
+        });
       return;
     }
 
