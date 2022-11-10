@@ -19,5 +19,11 @@
     <button type="submit" class="modal-close waves-effect waves-green btn">
       Submit
     </button>
+    <% if (typeof errors != "undefined") { for(const [i, val] of
+    errors.entries()) { if (i < errors.length-1) { %>
+    <p><%=val.msg%></p>
+    <% } else { %>
+    <p><%=val.msg%></p>
+    <% }}} %>
   </form>
 </div>

@@ -276,7 +276,7 @@ exports.game_update_get = (req, res) => {
         //locked game => prevent update
         res.render('unable_action', {
           title: 'Unable to update',
-          game: results.game,
+          item: results.game,
         });
       } else {
         res.render('add_game_form', {
