@@ -121,12 +121,20 @@ exports.genre_delete_get = (req, res) => {
         // No results.
         res.redirect('/library/genres');
       }
-      // Successful, so render.
-      res.render('genre_delete', {
-        title: 'Delete Genre',
-        genre: results.genre,
-        genre_games: results.genre_games,
-      });
+      if (results.genre.isLocked) {
+        //locked publisher => prevent update
+        res.render('unable_action', {
+          title: 'Unable to update',
+          genre: results.genre,
+        });
+      } else {
+        // Successful, so render.
+        res.render('genre_delete', {
+          title: 'Delete Genre',
+          genre: results.genre,
+          genre_games: results.genre_games,
+        });
+      }
     }
   );
 };
@@ -148,7 +156,7 @@ exports.genre_delete_post = (req, res) => {
       }
       // Success
       if (results.genre_games.length > 0) {
-        // Genre has books. Render in same way as for GET route.
+        // Genre has genre. Render in same way as for GET route.
         res.render('genre_delete', {
           title: 'Delete Genre',
           genre: results.genre,
@@ -190,12 +198,20 @@ exports.genre_update_get = (req, res) => {
         err.status = 404;
         return next(err);
       }
-      // Success.
-      res.render('add_genre_form', {
-        title: 'Update Genre',
-        genre: results.genre,
-        genre_games: results.genre_games,
-      });
+      if (results.genre.isLocked) {
+        //locked genre => prevent update
+        res.render('unable_action', {
+          title: 'Unable to update',
+          genre: results.genre,
+        });
+      } else {
+        // Success.
+        res.render('add_genre_form', {
+          title: 'Update Genre',
+          genre: results.genre,
+          genre_games: results.genre_games,
+        });
+      }
     }
   );
 };
@@ -233,6 +249,131 @@ exports.genre_update_post = [
       }
 
       // Successful: redirect to book detail page.
+      res.redirect(theGenre.url);
+    });
+  },
+];
+
+exports.genre_lock_get = (req, res) => {
+  Genre.findById(req.params.id).exec(function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    res.render('confirm_action_form', {
+      title: 'Lock Genre',
+      genre: result,
+    });
+  });
+};
+
+exports.genre_lock_post = [
+  // Validate and sanitize fields.
+  body('passwordInput')
+    .custom((value, { req }) => {
+      if (value !== 'superpassword') {
+        throw new Error('Wrong password');
+      }
+      // Indicates the success of this synchronous custom validator
+      return true;
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    const genre = new Genre({
+      isLocked: true,
+      name: req.body.genreName,
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    // if there are errors => re-render and display error message
+    if (!errors.isEmpty()) {
+      Genre.findById(req.params.id).exec(function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        res.render('confirm_action_form', {
+          title: 'Lock Genre',
+          genre: result,
+          errors: errors.array(),
+        });
+      });
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, theGenre) => {
+      if (err) {
+        return next(err);
+      }
+
+      // Successful: redirect to book detail page.
+      res.redirect(theGenre.url);
+    });
+  },
+];
+
+exports.genre_unlock_get = (req, res) => {
+  Genre.findById(req.params.id).exec(function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    res.render('confirm_action_form', {
+      title: 'Unlock genre',
+      genre: result,
+    });
+  });
+};
+
+exports.genre_unlock_post = [
+  // Validate and sanitize fields.
+  body('passwordInput')
+    .custom((value, { req }) => {
+      if (value !== 'superpassword') {
+        throw new Error('Wrong password');
+      }
+
+      // Indicates the success of this synchronous custom validator
+      return true;
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    const genre = new Genre({
+      isLocked: false,
+      name: req.body.genreName,
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    // if there are errors => re-render and display error message
+    if (!errors.isEmpty()) {
+      Genre.findById(req.params.id).exec(function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        res.render('confirm_action_form', {
+          title: 'Lock Publisher',
+          genre: result,
+          errors: errors.array(),
+        });
+      });
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, theGenre) => {
+      if (err) {
+        return next(err);
+      }
+
+      // Successful: redirect to publisher detail page.
       res.redirect(theGenre.url);
     });
   },

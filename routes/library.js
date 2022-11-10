@@ -133,6 +133,18 @@ router.get('/genre/:id/update', genre_controller.genre_update_get);
 // POST request to update Genre.
 router.post('/genre/:id/update', genre_controller.genre_update_post);
 
+// GET request to lock Genre.
+router.get('/genre/:id/lock', genre_controller.genre_lock_get);
+
+// POST request to lock Genre.
+router.post('/genre/:id/lock', genre_controller.genre_lock_post);
+
+// GET request to unlock Genre.
+router.get('/genre/:id/unlock', genre_controller.genre_unlock_get);
+
+// POST request to unlock Genre.
+router.post('/genre/:id/unlock', genre_controller.genre_unlock_post);
+
 // GET request for one Genre.
 router.get('/genre/:id', genre_controller.genre_detail);
 

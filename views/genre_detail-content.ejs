@@ -2,7 +2,18 @@
   <div class="publisher-card">
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
-        <span class="card-title"><h4><%=genre.name%></h4></span>
+        <span class="card-title"
+          ><h4><%=genre.name%></h4>
+          <% if (genre.isLocked) { %>
+          <a href="<%= genre.url %>/unlock ">
+            <i class="material-icons">lock </i></a
+          >
+          <% } else { %>
+          <a href="<%= genre.url %>/lock ">
+            <i class="material-icons">lock_open </i></a
+          >
+          <% } %>
+        </span>
         <h5>Games</h5>
         <ul class="collection">
           <% if(genre_games.length > 0){ %> <% for(const game of genre_games)
