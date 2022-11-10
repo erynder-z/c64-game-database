@@ -128,12 +128,20 @@ exports.publisher_delete_get = (req, res) => {
         // No results.
         res.redirect('/library/publishers');
       }
-      // Successful, so render.
-      res.render('publisher_delete', {
-        title: 'Delete Publisher',
-        publisher: results.publisher,
-        publisher_games: results.publishers_games,
-      });
+      if (results.publisher.isLocked) {
+        //locked publisher => prevent update
+        res.render('unable_action', {
+          title: 'Unable to update',
+          item: results.publisher,
+        });
+      } else {
+        // Successful, so render.
+        res.render('publisher_delete', {
+          title: 'Delete Publisher',
+          publisher: results.publisher,
+          publisher_games: results.publishers_games,
+        });
+      }
     }
   );
 };
@@ -200,12 +208,19 @@ exports.publisher_update_get = (req, res) => {
         return next(err);
       }
 
-      // Success.
-      res.render('add_publisher_form', {
-        title: 'Update Publisher',
-        publisher: results.publisher,
-        publisher_games: results.publishers_games,
-      });
+      if (results.publisher.isLocked) {
+        //locked publisher => prevent update
+        res.render('unable_action', {
+          title: 'Unable to update',
+          item: results.publisher,
+        });
+      } else {
+        res.render('add_publisher_form', {
+          title: 'Update Publisher',
+          publisher: results.publisher,
+          publisher_games: results.publishers_games,
+        });
+      }
     }
   );
 };
@@ -253,6 +268,145 @@ exports.publisher_update_post = [
         }
 
         // Successful: redirect to book detail page.
+        res.redirect(thePublisher.url);
+      }
+    );
+  },
+];
+
+exports.publisher_lock_get = (req, res) => {
+  Publisher.findById(req.params.id).exec(function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    res.render('confirm_action_form', {
+      title: 'Lock Publisher',
+      publisher: result,
+    });
+  });
+};
+
+exports.publisher_lock_post = [
+  // Validate and sanitize fields.
+  body('passwordInput')
+    .custom((value, { req }) => {
+      if (value !== 'superpassword') {
+        throw new Error('Wrong password');
+      }
+      // Indicates the success of this synchronous custom validator
+      return true;
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    const publisher = new Publisher({
+      isLocked: true,
+      name: req.body.name,
+      founded: req.body.founded,
+      defunct: req.body.defunct,
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    // if there are errors => re-render and display error message
+    if (!errors.isEmpty()) {
+      Publisher.findById(req.params.id).exec(function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        res.render('confirm_action_form', {
+          title: 'Lock Publisher',
+          publisher: result,
+          errors: errors.array(),
+        });
+      });
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Publisher.findByIdAndUpdate(
+      req.params.id,
+      publisher,
+      {},
+      (err, thePublisher) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to book detail page.
+        res.redirect(thePublisher.url);
+      }
+    );
+  },
+];
+
+exports.publisher_unlock_get = (req, res) => {
+  Publisher.findById(req.params.id).exec(function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    res.render('confirm_action_form', {
+      title: 'Unlock Publisher',
+      publisher: result,
+    });
+  });
+};
+
+exports.publisher_unlock_post = [
+  // Validate and sanitize fields.
+  body('passwordInput')
+    .custom((value, { req }) => {
+      if (value !== 'superpassword') {
+        throw new Error('Wrong password');
+      }
+
+      // Indicates the success of this synchronous custom validator
+      return true;
+    })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    const publisher = new Publisher({
+      isLocked: false,
+      name: req.body.name,
+      founded: req.body.founded,
+      defunct: req.body.defunct,
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    // if there are errors => re-render and display error message
+    if (!errors.isEmpty()) {
+      Publisher.findById(req.params.id).exec(function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        res.render('confirm_action_form', {
+          title: 'Lock Publisher',
+          publisher: result,
+          errors: errors.array(),
+        });
+      });
+      return;
+    }
+
+    // Data from form is valid. Update the record.
+    Publisher.findByIdAndUpdate(
+      req.params.id,
+      publisher,
+      {},
+      (err, thePublisher) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to publisher detail page.
         res.redirect(thePublisher.url);
       }
     );

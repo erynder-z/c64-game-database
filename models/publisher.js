@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PublisherSchema = new Schema({
+  isLocked: { type: Boolean, required: true },
   name: { type: String, required: true, maxLength: 100 },
   founded: { type: Number },
   defunct: { type: Number },

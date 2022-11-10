@@ -42,6 +42,18 @@ router.post(
   game_controller.game_update_post
 );
 
+// GET request to lock Game.
+router.get('/game/:id/lock', game_controller.game_lock_get);
+
+// POST request to lock Game.
+router.post('/game/:id/lock', game_controller.game_lock_post);
+
+// GET request to unlock Game.
+router.get('/game/:id/unlock', game_controller.game_unlock_get);
+
+// POST request to unlock Game.
+router.post('/game/:id/unlock', game_controller.game_unlock_post);
+
 // POST request to update Game-played_it.
 router.post('/game/:id/played_it', game_controller.game_played_it_post);
 
@@ -78,6 +90,21 @@ router.get('/publisher/:id/update', publisher_controller.publisher_update_get);
 router.post(
   '/publisher/:id/update',
   publisher_controller.publisher_update_post
+);
+
+// GET request to lock Publisher.
+router.get('/publisher/:id/lock', publisher_controller.publisher_lock_get);
+
+// POST request to lock Publisher.
+router.post('/publisher/:id/lock', publisher_controller.publisher_lock_post);
+
+// GET request to unlock Publisher.
+router.get('/publisher/:id/unlock', publisher_controller.publisher_unlock_get);
+
+// POST request to unlock Publisher.
+router.post(
+  '/publisher/:id/unlock',
+  publisher_controller.publisher_unlock_post
 );
 
 // GET request for one Publisher.
