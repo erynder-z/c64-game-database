@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const env = require('dotenv').config().parsed;
 const async = require('async');
 const Genre = require('../models/genre');
 const Game = require('../models/game');
@@ -270,7 +271,7 @@ exports.genre_lock_post = [
   // Validate and sanitize fields.
   body('passwordInput')
     .custom((value, { req }) => {
-      if (value !== 'superpassword') {
+      if (value !== env.lock_password) {
         throw new Error('Wrong password');
       }
       // Indicates the success of this synchronous custom validator
@@ -332,7 +333,7 @@ exports.genre_unlock_post = [
   // Validate and sanitize fields.
   body('passwordInput')
     .custom((value, { req }) => {
-      if (value !== 'superpassword') {
+      if (value !== env.lock_password) {
         throw new Error('Wrong password');
       }
 

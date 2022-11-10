@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const env = require('dotenv').config().parsed;
 const Game = require('../models/game');
 const Publisher = require('../models/publisher');
 const Genre = require('../models/genre');
@@ -431,7 +432,7 @@ exports.game_lock_post = [
   // Validate and sanitize fields.
   body('passwordInput')
     .custom((value, { req }) => {
-      if (value !== 'superpassword') {
+      if (value !== env.lock_password) {
         throw new Error('Wrong password');
       }
 
@@ -508,7 +509,7 @@ exports.game_unlock_post = [
   // Validate and sanitize fields.
   body('passwordInput')
     .custom((value, { req }) => {
-      if (value !== 'superpassword') {
+      if (value !== env.lock_password) {
         throw new Error('Wrong password');
       }
 
