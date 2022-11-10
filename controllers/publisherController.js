@@ -132,7 +132,7 @@ exports.publisher_delete_get = (req, res) => {
       if (results.publisher.isLocked) {
         //locked publisher => prevent update
         res.render('unable_action', {
-          title: 'Unable to update',
+          title: 'Unable to delete',
           item: results.publisher,
         });
       } else {
@@ -389,7 +389,7 @@ exports.publisher_unlock_post = [
           return next(err);
         }
         res.render('confirm_action_form', {
-          title: 'Lock Publisher',
+          title: 'Unlock Publisher',
           publisher: result,
           errors: errors.array(),
         });

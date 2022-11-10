@@ -547,7 +547,7 @@ exports.game_unlock_post = [
             return next(err);
           }
           res.render('confirm_action_form', {
-            title: 'Lock Game',
+            title: 'Unlock Game',
             game: result,
             errors: errors.array(),
           });

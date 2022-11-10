@@ -125,7 +125,7 @@ exports.genre_delete_get = (req, res) => {
       if (results.genre.isLocked) {
         //locked publisher => prevent update
         res.render('unable_action', {
-          title: 'Unable to update',
+          title: 'Unable to delete',
           genre: results.genre,
         });
       } else {
@@ -360,7 +360,7 @@ exports.genre_unlock_post = [
           return next(err);
         }
         res.render('confirm_action_form', {
-          title: 'Lock Publisher',
+          title: 'Unlock Genre',
           genre: result,
           errors: errors.array(),
         });
