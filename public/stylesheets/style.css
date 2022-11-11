@@ -1,9 +1,52 @@
-a {
+:root {
+  --c64_dark_blue: #20398d;
+  --c64_light_blue: #6076c5;
+}
+
+.c64_dark_blue_background {
+  background-color: var(--c64_dark_blue);
+}
+
+.c64_light_blue_background {
+  background-color: var(--c64_light_blue);
+}
+
+.c64_dark_blue_text {
+  color: var(--c64_dark_blue);
+}
+
+.c64_light_blue_text {
+  color: var(--c64_light_blue);
+}
+
+@font-face {
+  /* "http://style64.org/c64-truetype */
+  font-family: C64_Pro-STYLE;
+  src: url(../fonts/C64_Pro-STYLE.ttf);
+}
+
+@font-face {
+  /* "http://style64.org/c64-truetype */
+  font-family: C64_Pro_Mono-STYLE;
+  src: url(../fonts/C64_Pro_Mono-STYLE.ttf);
+}
+
+body {
+  font-family: C64_Pro-STYLE;
+}
+
+/* a {
   color: #bbdefb;
+} */
+
+.nav-wrapper a,
+.nav-wrapper ul li a {
+  color: var(--c64_dark_blue);
 }
 
 .app-container {
   min-height: 100vh;
+  background-color: var(--c64_dark_blue);
 }
 
 .add-game-modal,
@@ -39,6 +82,38 @@ a {
 .game-card,
 .publisher-card {
   width: 25vw;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(245, 245, 245, 0.25);
+  opacity: 1; /* Firefox */
+}
+
+.back-btn {
+  width: 10rem;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+@keyframes blink-caret {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.typing-line1 {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 1.5rem;
+  border-right: 1em solid var(--c64_light_blue);
+  width: 25em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(24, end),
+    blink-caret 0.5s 2s step-end infinite alternate;
 }
 
 @media only screen and (max-width: 599px) {
