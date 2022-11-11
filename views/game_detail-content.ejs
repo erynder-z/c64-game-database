@@ -30,7 +30,6 @@
             <a href="<%=game.publisher.url%> "><%=game.publisher.name%></a>
           </p>
           <p><strong>Year: <%=game.year %> </strong></p>
-          <p><strong>Summary: </strong><%=game.summary%></p>
           <p>
             <strong>Genre: </strong>
             <!-- prettier-ignore -->
@@ -41,6 +40,7 @@
             <a href="<%=val.url%>"><%=val.name%></a>
             <% } %> <% } %><% } %>
           </p>
+          <p><strong>Summary: </strong><%=game.summary%></p>
           <hr />
           <p><%= game.played_it %> users played it</p>
           <p><%= game.liked_it %> users liked it</p>
