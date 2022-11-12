@@ -1,6 +1,6 @@
 :root {
-  --c64_dark_blue: #20398d;
-  --c64_light_blue: #6076c5;
+  --c64_dark_blue: #50459b;
+  --c64_light_blue: #887ecb;
 }
 
 .c64_dark_blue_background {
@@ -39,8 +39,38 @@ body {
   color: #bbdefb;
 } */
 
+.btn-floating {
+  border-radius: 0;
+
+  /*   overflow: unset !important; */
+}
+
+.btn-floating i {
+  color: var(--c64_dark_blue) !important;
+}
+
+.nav-wrapper {
+  outline: solid 2px var(--c64_light_blue);
+}
+
+.nav-wrapper ul {
+  border-bottom: none;
+}
+
 .nav-wrapper a,
-.nav-wrapper ul li a {
+.nav-wrapper ul li a,
+.sidenav li a {
+  background-color: var(--c64_dark_blue);
+  color: var(--c64_light_blue);
+  border-bottom: none;
+}
+
+.toolbar ul {
+  border-top: solid 2px var(--c64_dark_blue);
+  background-color: var(--c64_light_blue);
+}
+
+.fixed-action-btn.toolbar ul li a {
   color: var(--c64_dark_blue);
 }
 
@@ -105,15 +135,59 @@ body {
   }
 }
 
-.typing-line1 {
+.typing-index {
   font-family: C64_Pro_Mono-STYLE;
   font-size: 1.5rem;
-  border-right: 1em solid var(--c64_light_blue);
+  border-right: 1.5rem solid var(--c64_light_blue);
   width: 25em;
   white-space: nowrap;
   overflow: hidden;
-  animation: typing 2s steps(24, end),
+  animation: typing 2s steps(25, end),
     blink-caret 0.5s 2s step-end infinite alternate;
+}
+
+.typing-games {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 10em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(10, end),
+    blink-caret 0.5s 2s step-end infinite alternate;
+}
+
+.typing-publisher {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 15em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(15, end),
+    blink-caret 0.5s 1.5s step-end infinite alternate;
+}
+
+.typing-year {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 18em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2.5s steps(18, end),
+    blink-caret 0.5s 2.5s step-end infinite alternate;
+}
+
+.typing-genre {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 11em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(11, end),
+    blink-caret 0.5s 1.5s step-end infinite alternate;
 }
 
 @media only screen and (max-width: 599px) {

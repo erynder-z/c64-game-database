@@ -1,5 +1,16 @@
-<h1><%= title %></h1>
-
+<% if (title.toUpperCase() === "UNLOCK GAME") { %>
+<h1 class="typing-unlock-game"><%= title %></h1>
+<% } %> <% if (title.toUpperCase() === "LOCK Game") { %>
+<h1 class="typing-lock-game"><%= title %></h1>
+<% } %> <% if (title.toUpperCase() === "UNLOCK PUBLISHER") { %>
+<h1 class="typing-unlock-publisher"><%= title %></h1>
+<% } %> <% if (title.toUpperCase() === "LOCK PUBLISHER") { %>
+<h1 class="typing-lock-publisher"><%= title %></h1>
+<% } %> <% if (title.toUpperCase() === "UNLOCK GENRE") { %>
+<h1 class="typing-unlock-genre"><%= title %></h1>
+<% } %> <% if (title.toUpperCase() === "LOCK GENRE") { %>
+<h1 class="typing-lock-genre"><%= title %></h1>
+<% } %>
 <p><strong>This action requires a password</strong></p>
 
 <div class="row">
