@@ -12,13 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// Modals
-document.addEventListener('DOMContentLoaded', function () {
-  var elems = document.querySelectorAll('.modal');
-  var instances = M.Modal.init(elems, {});
-});
-
-// Modal dropdown
+// Form dropdown
 document.addEventListener('DOMContentLoaded', function () {
   var elems = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elems, {});
