@@ -9,7 +9,7 @@
   letter.toLowerCase() && game_list.indexOf(game) === 0) { %> <% } %> <% if
   (game.title[0].toLowerCase() == letter.toLowerCase()) { %>
   <li>
-    <a href="<%=game.url%>"> <%=game.title%> </a>
+    <a class="c64_light_blue_text" href="<%=game.url%>"> <%=game.title%> </a>
   </li>
   <% } %><% } %> <% }) %> <% } else { %>
   <p>There are no games</p>

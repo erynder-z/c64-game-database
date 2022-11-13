@@ -1,25 +1,49 @@
+<!-- get number of letters of title in order to make the typing effect work properly -->
+<% const numberOfLetters = publisher?.name.length + 3; %> <% const element_width
+= numberOfLetters;%>
+
 <div class="row">
   <div class="publisher-card">
-    <div class="card blue-grey darken-1">
-      <div class="card-content white-text">
+    <div class="c64_dark_blue_background">
+      <div class="item-options">
+        <p>
+          <a href="<%= publisher.url %>/delete ">Delete Publisher</a>
+        </p>
+        <p>
+          <a href="<%= publisher.url %>/update ">Update Publisher</a>
+        </p>
+      </div>
+      <div class="card-content">
         <span class="card-title">
-          <h4><%=publisher.name %></h4>
-          <% if (publisher.isLocked) { %>
-          <a href="<%= publisher.url %>/unlock ">
-            <i class="material-icons">lock </i></a
+          <h1
+            style="
+              font-family: C64_Pro_Mono-STYLE;
+              font-size: 2rem;
+              border-right: 2rem solid var(--c64_light_blue);
+              width: <%=element_width%>em;
+              white-space: nowrap;
+              overflow: hidden;
+              animation: typing 1.5s steps(<%=element_width%>, end),
+                blink-caret 0.4s 1.5s step-end infinite alternate;
+            "
           >
-          <% } else { %>
-          <a href="<%= publisher.url %>/lock ">
-            <i class="material-icons">lock_open </i></a
-          >
-          <% } %>
+            <%=publisher.name %> <% if (publisher.isLocked) { %>
+            <a href="<%= publisher.url %>/unlock ">
+              <i class="material-icons">lock </i></a
+            >
+            <% } else { %>
+            <a href="<%= publisher.url %>/lock ">
+              <i class="material-icons">lock_open </i></a
+            >
+            <% } %>
+          </h1>
         </span>
         <p><%=publisher.founded%> - <%=publisher.defunct %></p>
-        <h5>Games</h5>
+        <h2>Games</h2>
         <ul class="collection">
           <% if(publisher_games.length > 0){ %> <% for(const game of
           publisher_games) {%>
-          <li class="collection-item grey darken-3">
+          <li class="collection-item c64_dark_blue_background">
             <strong><a href="<%=game.url%>"><%=game.title%></a></strong>
           </li>
 
@@ -29,13 +53,6 @@
         <p>This publisher has no games</p>
         <% } %>
       </div>
-      <hr />
-      <p>
-        <a href="<%= publisher.url %>/delete ">Delete Publisher</a>
-      </p>
-      <p>
-        <a href="<%= publisher.url %>/update ">Update Publisher</a>
-      </p>
     </div>
   </div>
 </div>

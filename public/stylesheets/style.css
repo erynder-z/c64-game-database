@@ -1,6 +1,14 @@
 :root {
   --c64_dark_blue: #50459b;
   --c64_light_blue: #887ecb;
+  --c64_red: #9f4e44;
+  --c64_yellow: #c9d487;
+  --c64_dark_grey: #626262;
+  --c64_medium_grey: #898989;
+  --c64_light_grey: #adadad;
+  --c64_light_green: #9ae29b;
+  --c64_dark_green: #5cab5e;
+  --c64_pink: #a057a3;
 }
 
 .c64_dark_blue_background {
@@ -35,18 +43,47 @@ body {
   font-family: C64_Pro-STYLE;
 }
 
-/* a {
-  color: #bbdefb;
-} */
+a {
+  color: var(--c64_light_blue);
+}
+
+a:hover {
+  color: var(--c64_light_green);
+}
+
+hr {
+  height: 1px;
+  background-color: var(--c64_light_blue);
+  border-color: var(--c64_light_blue);
+}
+
+.card-content h2 {
+  font-size: 1.5rem;
+}
 
 .btn-floating {
   border-radius: 0;
+  background-color: var(--c64_light_blue) !important;
+}
 
-  /*   overflow: unset !important; */
+.btn-floating i:hover {
+  background-color: var(--c64_light_green);
 }
 
 .btn-floating i {
+  font-weight: bold;
+  font-size: 2.5rem;
   color: var(--c64_dark_blue) !important;
+}
+
+.close {
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: var(--c64_red);
+}
+
+.close:hover {
+  color: var(--c64_yellow);
 }
 
 .nav-wrapper {
@@ -65,6 +102,12 @@ body {
   border-bottom: none;
 }
 
+.nav-wrapper a:hover,
+.nav-wrapper ul li a:hover,
+.sidenav li a:hover {
+  color: var(--c64_light_green);
+}
+
 .toolbar ul {
   border-top: solid 2px var(--c64_dark_blue);
   background-color: var(--c64_light_blue);
@@ -72,6 +115,18 @@ body {
 
 .fixed-action-btn.toolbar ul li a {
   color: var(--c64_dark_blue);
+}
+.fixed-action-btn.toolbar ul li a:hover {
+  color: var(--c64_light_green);
+}
+
+.collection {
+  border: solid 2px var(--c64_light_blue);
+}
+
+.collection .collection-item {
+  background-color: unset !important;
+  border-color: var(--c64_light_blue);
 }
 
 .app-container {
@@ -93,9 +148,9 @@ body {
 .content-wrapper.game_list,
 .content-wrapper.publisher_list,
 .game-container {
-  display: flex;
+  /*   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .index h1,
@@ -104,14 +159,22 @@ body {
   text-align: center;
 }
 
-.card {
+.item-options {
   display: flex;
-  flex-direction: column;
+  justify-content: right;
+  align-items: center;
+  gap: 2rem;
 }
 
-.game-card,
-.publisher-card {
-  width: 25vw;
+.game-action {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2rem;
+
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 5rem;
 }
 
 ::placeholder {
@@ -143,7 +206,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 2s steps(25, end),
-    blink-caret 0.5s 2s step-end infinite alternate;
+    blink-caret 0.4s 2s step-end infinite alternate;
 }
 
 .typing-games {
@@ -154,7 +217,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 2s steps(10, end),
-    blink-caret 0.5s 2s step-end infinite alternate;
+    blink-caret 0.4s 2s step-end infinite alternate;
 }
 
 .typing-publisher {
@@ -165,7 +228,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 1.5s steps(15, end),
-    blink-caret 0.5s 1.5s step-end infinite alternate;
+    blink-caret 0.4s 1.5s step-end infinite alternate;
 }
 
 .typing-year {
@@ -176,7 +239,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 2.5s steps(18, end),
-    blink-caret 0.5s 2.5s step-end infinite alternate;
+    blink-caret 0.4s 2.5s step-end infinite alternate;
 }
 
 .typing-genre {
@@ -187,8 +250,96 @@ body {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 1.5s steps(11, end),
-    blink-caret 0.5s 1.5s step-end infinite alternate;
+    blink-caret 0.4s 1.5s step-end infinite alternate;
 }
+
+.typing-unable-action {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 17em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(17, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-unlock-game {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 12em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(12, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-lock-game {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 10em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(10, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-unlock-publisher {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 17em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(17, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-lock-publisher {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 15em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(15, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-unlock-genre {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 13em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(13, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-lock-genre {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 11em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(11, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+/* .typing-game-title {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 2rem;
+  border-right: 2rem solid var(--c64_light_blue);
+    width: 11em;
+  white-space: nowrap;
+  overflow: hidden;
+    animation: typing 1.5s steps(11, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+} */
 
 @media only screen and (max-width: 599px) {
   .game-card,
