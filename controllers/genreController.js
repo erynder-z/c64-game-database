@@ -68,7 +68,7 @@ exports.genre_create_post = [
     const errors = validationResult(req);
 
     // Create a genre object with escaped and trimmed data.
-    const genre = new Genre({ name: req.body.genreName });
+    const genre = new Genre({ isLocked: false, name: req.body.genreName });
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
@@ -323,7 +323,7 @@ exports.genre_unlock_get = (req, res) => {
       return next(err);
     }
     res.render('confirm_action_form', {
-      title: 'Unlock genre',
+      title: 'Unlock Genre',
       genre: result,
     });
   });

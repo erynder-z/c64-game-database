@@ -94,6 +94,7 @@ exports.publisher_create_post = [
       } else {
         // Create an Author object with escaped and trimmed data.
         const publisher = new Publisher({
+          isLocked: true,
           name: req.body.publisherName,
           founded: req.body.founded,
           defunct: req.body.defunct,
