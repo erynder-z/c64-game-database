@@ -11,7 +11,7 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
         class="validate" required="true" 
         value="<% if (typeof game =="undefined") { %><% } else { %><%=game.title %><% } %>"
         />
-        <label for="title" class="black-text">Title</label>
+        <label for="title" class="c64_light_blue_text">Title</label>
       </div>
       <div class="input-field col s6">
         <!-- prettier-ignore -->
@@ -31,7 +31,7 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
           <% } %> <% } %>
         </select>
 
-        <label class="black-text">Publisher</label>
+        <label class="c64_light_blue_text">Publisher</label>
       </div>
     </div>
     <div class="row">
@@ -40,21 +40,21 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
         <input placeholder="Year published" id="year" name="year" type="number"
         class="validate" value="<% if (typeof game == "undefined") { %>
         <% } else { %><%=game.year %><% } %>" />
-        <label for="year" class="black-text">Year</label>
+        <label for="year" class="c64_light_blue_text">Year</label>
       </div>
       <div class="input-field col s6">
         <div class="form-group">
-          <label for="genre" class="black-text">Genre:</label>
+          <label for="genre" class="c64_light_blue_text">Genre:</label>
           <div>
             <% for(const genre of genres) {%>
             <div>
               <!-- prettier-ignore -->
-              <label class="black-text">
+              <label class="c64_light_blue_text">
               <input
                       id="<%= genre._id %>"
                       name="genre"
                       type="checkbox" 
-                      class="filled-in"
+                      class="filled-in checkbox-c64"
                       value="<%= genre._id %>"
                       <% if (genre.checked) { %>
                       checked="checked" <% } %> />
@@ -75,12 +75,12 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
             class="materialize-textarea"
             required="true"
           ><% if (typeof game == "undefined") { %><% } else { %><%=game.summary%><% } %></textarea>
-          <label for="summary" class="black-text">Summary</label>
+          <label for="summary" class="c64_light_blue_text">Summary</label>
         </div>
       </div>
       <div class="input-field col s6">
         <div class="file-field input-field">
-          <div class="btn">
+          <div class="btn styled-btn">
             <span>Add image</span>
             <input type="file" name="imagePicker" />
           </div>
@@ -91,7 +91,10 @@ let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) 
       </div>
     </div>
 
-    <button type="submit" class="modal-close waves-effect waves-green btn">
+    <button
+      type="submit"
+      class="modal-close waves-effect waves-green btn styled-btn"
+    >
       Submit
     </button>
   </form>

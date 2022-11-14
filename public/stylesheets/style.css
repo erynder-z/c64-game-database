@@ -120,13 +120,52 @@ hr {
   color: var(--c64_light_green);
 }
 
-.collection {
-  border: solid 2px var(--c64_light_blue);
+.list-head,
+.collection .collection-item {
+  display: flex;
+  gap: 3rem;
+  background-color: unset !important;
+  border: none;
+  padding: 0.15rem 1rem;
+  margin-bottom: 0;
 }
 
-.collection .collection-item {
-  background-color: unset !important;
-  border-color: var(--c64_light_blue);
+.list-head > * {
+  font-size: 1.5rem;
+}
+
+.list-head .right-part {
+  background-color: var(--c64_light_blue);
+  color: var(--c64_dark_blue);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.collection {
+  border: none;
+  margin-top: 0;
+}
+
+.list-item-container {
+  display: flex;
+  font-size: 1.5rem;
+  width: 100%;
+}
+.list-item-container .left-part {
+  width: 3rem;
+}
+
+.list-item-container .right-part {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1rem 0 5rem;
+}
+
+.list-item-container .right-part span {
+  text-align: end;
 }
 
 .app-container {
@@ -179,12 +218,72 @@ hr {
 
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: rgba(245, 245, 245, 0.25);
+  color: rgba(245, 245, 245, 0.15);
   opacity: 1; /* Firefox */
 }
 
 .back-btn {
   width: 10rem;
+}
+
+.btn {
+  background-color: var(--c64_light_blue);
+  color: var(--c64_dark_blue);
+}
+
+.btn:hover {
+  background-color: var(--c64_light_green);
+  color: var(--c64_dark_blue);
+}
+
+.styled-btn {
+  font-family: C64_Pro-STYLE;
+}
+
+input,
+textarea {
+  font-family: C64_Pro-STYLE;
+  color: var(--c64_light_blue);
+}
+
+.input-field > label {
+  color: var(--c64_light_blue);
+}
+
+/* .input-field input[type='text']:focus {
+  border-bottom: 1px solid var(--c64_yellow);
+} */
+
+.input-field input[type='text'].valid {
+  border-bottom: 1px solid var(--c64_dark_green);
+}
+
+.input-field input[type='text'].invalid {
+  border-bottom: 1px solid var(--c64_red);
+}
+
+.checkbox-c64[type='checkbox'].filled-in:checked + span:not(.lever):after {
+  border: 2px solid var(--c64_light_blue);
+  background-color: var(--c64_light_blue);
+}
+
+.checkbox-c64[type='checkbox'].filled-in:checked + span:not(.lever):before {
+  border-right: 2px solid var(--c64_dark_blue);
+  border-bottom: 2px solid var(--c64_dark_blue);
+}
+
+ul.dropdown-content {
+  outline: solid 1px var(--c64_light_blue);
+}
+
+ul.dropdown-content.select-dropdown li span {
+  background-color: var(--c64_dark_blue);
+  color: var(--c64_light_blue);
+}
+
+ul.dropdown-content.select-dropdown li span:hover {
+  background-color: var(--c64_light_blue);
+  color: var(--c64_dark_blue);
 }
 
 @keyframes typing {

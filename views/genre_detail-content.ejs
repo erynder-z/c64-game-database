@@ -1,6 +1,6 @@
 <!-- get number of letters of title in order to make the typing effect work properly -->
-<% const numberOfLetters = genre?.name.length + 3; %> <% const element_width
-= numberOfLetters;%>
+<% const numberOfLetters = genre?.name.length + 3; %> <% const element_width =
+numberOfLetters;%>
 <div class="row">
   <div class="publisher-card">
     <div class="c64_dark_blue_background">
@@ -15,36 +15,43 @@
       <div class="card-content">
         <span class="card-title">
           <h1
-          style="
-            font-family: C64_Pro_Mono-STYLE;
-            font-size: 2rem;
-            border-right: 2rem solid var(--c64_light_blue);
-            width: <%=element_width%>em;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 1.5s steps(<%=element_width%>, end),
-              blink-caret 0.4s 1.5s step-end infinite alternate;
-          "
-        >
-          <%=genre.name%>
-          <% if (genre.isLocked) { %>
-          <a href="<%= genre.url %>/unlock ">
-            <i class="material-icons">lock </i></a
+            style="
+              font-family: C64_Pro_Mono-STYLE;
+              font-size: 2rem;
+              border-right: 2rem solid var(--c64_light_blue);
+              width: <%=element_width%>em;
+              white-space: nowrap;
+              overflow: hidden;
+              animation: typing 1.5s steps(<%=element_width%>, end),
+                blink-caret 0.4s 1.5s step-end infinite alternate;
+            "
           >
-          <% } else { %>
-          <a href="<%= genre.url %>/lock ">
-            <i class="material-icons">lock_open </i></a
-          >
-          <% } %>
+            <%=genre.name%> <% if (genre.isLocked) { %>
+            <a href="<%= genre.url %>/unlock ">
+              <i class="material-icons">lock </i></a
+            >
+            <% } else { %>
+            <a href="<%= genre.url %>/lock ">
+              <i class="material-icons">lock_open </i></a
+            >
+            <% } %>
+          </h1>
         </span>
-        <h2>Games</h2>
+        <% if(genre_games.length > 0){ %>
+        <h2 class="list-head">
+          <div class="left-part">0</div>
+          <div class="right-part"><span>Games</span> <span> 11 2A</span></div>
+        </h2>
         <ul class="collection">
-          <% if(genre_games.length > 0){ %> <% for(const game of genre_games)
-          {%>
+          <% for(const game of genre_games) {%>
           <li class="collection-item c64_dark_blue_background">
-            <strong><a href="<%=game.url%>"><%=game.title%></a></strong>
+            <div class="list-item-container">
+              <div class="left-part"><%=genre_games.indexOf(game)+1 %></div>
+              <div class="right-part">
+                <a href="<%=game.url%>">"<%=game.title%>"</a><span>PRG</span>
+              </div>
+            </div>
           </li>
-
           <% } %>
         </ul>
         <% } else { %>

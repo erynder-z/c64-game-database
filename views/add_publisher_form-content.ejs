@@ -9,9 +9,10 @@
           name="publisherName"
           type="text"
           class="validate"
+          required="true"
           value="<% if (typeof publisher =="undefined") { %><% } else { %><%=publisher.name %><% } %>"
         />
-        <label for="publisherName" name="publisherName" class="black-text"
+        <label for="publisherName" name="publisherName" class="c64_light_blue_text"
           >Name</label
         >
       </div>
@@ -26,7 +27,7 @@
           class="validate"
           value="<% if (typeof publisher =="undefined") { %><% } else { %><%=publisher.founded %><% } %>"
         />
-        <label for="founded" name="founded" class="black-text">Founded</label>
+        <label for="founded" name="founded" class="c64_light_blue_text">Founded</label>
       </div>
     </div>
     <div class="row">
@@ -39,10 +40,10 @@
           class="validate"
           value="<% if (typeof publisher =="undefined") { %><% } else { %><%=publisher.defunct %><% } %>"
         />
-        <label for="defunct" name="defunct" class="black-text">Defunct</label>
+        <label for="defunct" name="defunct" class="c64_light_blue_text">Defunct</label>
       </div>
     </div>
-    <button type="submit" class="modal-close waves-effect waves-green btn">
+    <button type="submit" class="modal-close waves-effect waves-green btn styled-btn">
       Submit
     </button>
   </form>

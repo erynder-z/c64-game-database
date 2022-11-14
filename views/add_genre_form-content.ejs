@@ -9,13 +9,14 @@
           name="genreName"
           type="text"
           class="validate"
+          required="true"
           value="<% if (typeof genre =="undefined") { %><% } else { %><%=genre.name %><% } %>"
         />
-        <label for="genreName" name="genreName" class="black-text">Name</label>
+        <label for="genreName" name="genreName" class="c64_light_blue_text">Name</label>
       </div>
     </div>
 
-    <button type="submit" class="modal-close waves-effect waves-green btn">
+    <button type="submit" class="modal-close waves-effect waves-green btn styled-btn">
       Submit
     </button>
   </form>

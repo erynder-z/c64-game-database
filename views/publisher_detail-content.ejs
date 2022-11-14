@@ -39,14 +39,23 @@
           </h1>
         </span>
         <p><%=publisher.founded%> - <%=publisher.defunct %></p>
-        <h2>Games</h2>
-        <ul class="collection">
-          <% if(publisher_games.length > 0){ %> <% for(const game of
-          publisher_games) {%>
-          <li class="collection-item c64_dark_blue_background">
-            <strong><a href="<%=game.url%>"><%=game.title%></a></strong>
-          </li>
+        <% if(publisher_games.length > 0){ %>
+        <h2 class="list-head">
+          <div class="left-part">0</div>
+          <div class="right-part"><span>Games</span> <span> 11 2A</span></div>
+        </h2>
 
+        <ul class="collection">
+          <% for(const game of publisher_games) {%>
+
+          <li class="collection-item c64_dark_blue_background">
+            <div class="list-item-container">
+              <div class="left-part"><%=publisher_games.indexOf(game)+1 %></div>
+              <div class="right-part">
+                <a href="<%=game.url%>">"<%=game.title%>"</a><span>PRG</span>
+              </div>
+            </div>
+          </li>
           <% } %>
         </ul>
         <% } else { %>
