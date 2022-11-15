@@ -1,5 +1,3 @@
-<!-- TODO: check for undefined years -->
-
 <% const highestYear = max_year; const lowestYear = min_year; %>
 <h1 class="typing-year"><%=title%></h1>
 <ul>
@@ -13,8 +11,15 @@
   <li>
     <a href="<%=game.url%>"> <%=game.title%> </a>
   </li>
+  <% } %> <% } %><% } %>
+  <h2>Unknown</h2>
 
-  <% } %><% } %><% } %> <% } else { %>
+  <% for(const game of game_list) {%> <% if (game.year == undefined) { %>
+  <li>
+    <a href="<%=game.url%>"> <%=game.title%> </a>
+  </li>
+
+  <% } %><% } %><% } else { %>
   <p>There are no games</p>
   <% } %>
 </ul>
