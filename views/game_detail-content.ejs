@@ -15,11 +15,13 @@ numberOfLetters;%>
         </p>
       </div>
       <% if (typeof game.img.data != "undefined") { %>
-      <img
-        class="game_card-image"
-        src="data:image/<%=game.img.contentType%>;base64,<%=game.img.data.toString('base64')%>"
-        alt=""
-      />
+      <div class="image-container">
+        <img
+          class="game_card-image"
+          src="data:image/<%=game.img.contentType%>;base64,<%=game.img.data.toString('base64')%>"
+          alt=""
+        />
+      </div>
       <% } else { %>
       <img class="game_card-image" src="/images/placeholder.png" alt="" />
       <% } %>
@@ -52,16 +54,16 @@ numberOfLetters;%>
           <strong>Publisher:</strong>
           <a href="<%=game.publisher.url%> "><%=game.publisher.name%></a>
         </p>
-        <p><strong>Year: <%=game.year %> </strong></p>
+        <p><strong>Year: <%=game.year ? game.year : "-" %> </strong></p>
         <p>
           <strong>Genre: </strong>
           <!-- prettier-ignore -->
-          <% if(game){ %>
+          <% if(game && game.genre.length > 0) { %>
                  <% for(const [i, val] of game.genre.entries()) {%> <% if (i < game.genre.length-1) { %>
           <a href="<%=val.url%>"><%=val.name%>,</a>
           <% } else { %>
           <a href="<%=val.url%>"><%=val.name%></a>
-          <% } %> <% } %><% } %>
+          <% } %> <% } %><% } else { %> - <% } %>
         </p>
         <p><strong>Summary: </strong><%=game.summary%></p>
 

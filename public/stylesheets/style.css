@@ -429,20 +429,48 @@ ul.dropdown-content.select-dropdown li span:hover {
     blink-caret 0.4s 1.5s step-end infinite alternate;
 }
 
-/* .typing-game-title {
-  font-family: C64_Pro_Mono-STYLE;
-  font-size: 2rem;
-  border-right: 2rem solid var(--c64_light_blue);
-    width: 11em;
-  white-space: nowrap;
-  overflow: hidden;
-    animation: typing 1.5s steps(11, end),
-    blink-caret 0.4s 1.5s step-end infinite alternate;
-} */
-
 @media only screen and (max-width: 599px) {
-  .game-card,
-  .publisher-card {
-    width: 100%;
+  .content-wrapper {
+    padding: 0.5rem;
+  }
+
+  .item-options {
+    justify-content: center;
+  }
+
+  .typing-index {
+    font-size: 1rem;
+    border-right: 1rem solid var(--c64_light_blue);
+  }
+
+  .typing-games,
+  .typing-publisher,
+  .typing-year,
+  .typing-genre,
+  .typing-unable-action,
+  .typing-unlock-game,
+  .typing-lock-game,
+  .typing-unlock-publisher,
+  .typing-lock-publisher,
+  .typing-unlock-genre,
+  .typing-lock-genre {
+    font-size: 1.2rem;
+    border-right: 1.2rem solid var(--c64_light_blue);
+  }
+
+  .card-content > h1 {
+    width: unset !important;
+    white-space: unset !important;
+    border-right: unset !important;
+  }
+
+  .game-action {
+    padding: unset;
+    margin-top: 4rem;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: center;
   }
 }
