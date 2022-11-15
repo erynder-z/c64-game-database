@@ -284,35 +284,40 @@ exports.genre_lock_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    const genre = new Genre({
-      isLocked: true,
-      name: req.body.genreName,
-      _id: req.params.id, //This is required, or a new ID will be assigned!
-    });
-
-    // if there are errors => re-render and display error message
-    if (!errors.isEmpty()) {
-      Genre.findById(req.params.id).exec(function (err, result) {
-        if (err) {
-          return next(err);
-        }
-        res.render('confirm_action_form', {
-          title: 'Lock Genre',
-          genre: result,
-          errors: errors.array(),
-        });
-      });
-      return;
-    }
-
-    // Data from form is valid. Update the record.
-    Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, theGenre) => {
+    Genre.findById(req.params.id).exec(function (err, result) {
       if (err) {
         return next(err);
       }
+      const genre = new Genre({
+        isLocked: true,
+        name: req.body.genreName,
+        _id: req.params.id, //This is required, or a new ID will be assigned!
+      });
 
-      // Successful: redirect to book detail page.
-      res.redirect(theGenre.url);
+      // if there are errors => re-render and display error message
+      if (!errors.isEmpty()) {
+        Genre.findById(req.params.id).exec(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.render('confirm_action_form', {
+            title: 'Lock Genre',
+            genre: result,
+            errors: errors.array(),
+          });
+        });
+        return;
+      }
+
+      // Data from form is valid. Update the record.
+      Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, theGenre) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to book detail page.
+        res.redirect(theGenre.url);
+      });
     });
   },
 ];
@@ -347,35 +352,40 @@ exports.genre_unlock_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    const genre = new Genre({
-      isLocked: false,
-      name: req.body.genreName,
-      _id: req.params.id, //This is required, or a new ID will be assigned!
-    });
-
-    // if there are errors => re-render and display error message
-    if (!errors.isEmpty()) {
-      Genre.findById(req.params.id).exec(function (err, result) {
-        if (err) {
-          return next(err);
-        }
-        res.render('confirm_action_form', {
-          title: 'Unlock Genre',
-          genre: result,
-          errors: errors.array(),
-        });
-      });
-      return;
-    }
-
-    // Data from form is valid. Update the record.
-    Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, theGenre) => {
+    Genre.findById(req.params.id).exec(function (err, result) {
       if (err) {
         return next(err);
       }
+      const genre = new Genre({
+        isLocked: false,
+        name: req.body.genreName,
+        _id: req.params.id, //This is required, or a new ID will be assigned!
+      });
 
-      // Successful: redirect to publisher detail page.
-      res.redirect(theGenre.url);
+      // if there are errors => re-render and display error message
+      if (!errors.isEmpty()) {
+        Genre.findById(req.params.id).exec(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.render('confirm_action_form', {
+            title: 'Unlock Genre',
+            genre: result,
+            errors: errors.array(),
+          });
+        });
+        return;
+      }
+
+      // Data from form is valid. Update the record.
+      Genre.findByIdAndUpdate(req.params.id, genre, {}, (err, theGenre) => {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful: redirect to publisher detail page.
+        res.redirect(theGenre.url);
+      });
     });
   },
 ];

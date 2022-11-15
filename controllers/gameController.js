@@ -446,47 +446,55 @@ exports.game_lock_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    const game = new Game({
-      isLocked: true,
-      title: req.body.title,
-      publisher: req.body.publisher,
-      summary: req.body.summary,
-      genre: typeof req.body.genre === 'undefined' ? [] : req.body.genre,
-      year: req.body.year,
-      img: {
-        data: req.file?.buffer,
-        contentType: req.file?.mimetype,
-      },
-      _id: req.params.id, //This is required, or a new ID will be assigned!
-    });
+    Game.findById(req.params.id)
+      .populate('publisher')
+      .populate('genre')
+      .exec(function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        const game = new Game({
+          isLocked: true,
+          title: result.title,
+          publisher: result.publisher,
+          summary: result.summary,
+          genre: result.genre,
+          year: result.year,
+          img: {
+            data: result.buffer,
+            contentType: result.mimetype,
+          },
+          _id: req.params.id, //This is required, or a new ID will be assigned!
+        });
 
-    // if there are errors => re-render and display error message
-    if (!errors.isEmpty()) {
-      Game.findById(req.params.id)
-        .populate('publisher')
-        .populate('genre')
-        .exec(function (err, result) {
+        // if there are errors => re-render and display error message
+        if (!errors.isEmpty()) {
+          Game.findById(req.params.id)
+            .populate('publisher')
+            .populate('genre')
+            .exec(function (err, result) {
+              if (err) {
+                return next(err);
+              }
+              res.render('confirm_action_form', {
+                title: 'Lock Game',
+                game: result,
+                errors: errors.array(),
+              });
+            });
+          return;
+        }
+
+        // Data from form is valid. Update the record.
+        Game.findByIdAndUpdate(req.params.id, game, {}, (err, theGame) => {
           if (err) {
             return next(err);
           }
-          res.render('confirm_action_form', {
-            title: 'Lock Game',
-            game: result,
-            errors: errors.array(),
-          });
+
+          // Successful: redirect to book detail page.
+          res.redirect(theGame.url);
         });
-      return;
-    }
-
-    // Data from form is valid. Update the record.
-    Game.findByIdAndUpdate(req.params.id, game, {}, (err, theGame) => {
-      if (err) {
-        return next(err);
-      }
-
-      // Successful: redirect to book detail page.
-      res.redirect(theGame.url);
-    });
+      });
   },
 ];
 
@@ -523,46 +531,54 @@ exports.game_unlock_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    const game = new Game({
-      isLocked: false,
-      title: req.body.title,
-      publisher: req.body.publisher,
-      summary: req.body.summary,
-      genre: typeof req.body.genre === 'undefined' ? [] : req.body.genre,
-      year: req.body.year,
-      img: {
-        data: req.file?.buffer,
-        contentType: req.file?.mimetype,
-      },
-      _id: req.params.id, //This is required, or a new ID will be assigned!
-    });
+    Game.findById(req.params.id)
+      .populate('publisher')
+      .populate('genre')
+      .exec(function (err, result) {
+        if (err) {
+          return next(err);
+        }
+        const game = new Game({
+          isLocked: false,
+          title: result.title,
+          publisher: result.publisher,
+          summary: result.summary,
+          genre: result.genre,
+          year: result.year,
+          img: {
+            data: result.buffer,
+            contentType: result.mimetype,
+          },
+          _id: req.params.id, //This is required, or a new ID will be assigned!
+        });
 
-    // if there are errors => re-render and display error message
-    if (!errors.isEmpty()) {
-      Game.findById(req.params.id)
-        .populate('publisher')
-        .populate('genre')
-        .exec(function (err, result) {
+        // if there are errors => re-render and display error message
+        if (!errors.isEmpty()) {
+          Game.findById(req.params.id)
+            .populate('publisher')
+            .populate('genre')
+            .exec(function (err, result) {
+              if (err) {
+                return next(err);
+              }
+              res.render('confirm_action_form', {
+                title: 'Lock Game',
+                game: result,
+                errors: errors.array(),
+              });
+            });
+          return;
+        }
+
+        // Data from form is valid. Update the record.
+        Game.findByIdAndUpdate(req.params.id, game, {}, (err, theGame) => {
           if (err) {
             return next(err);
           }
-          res.render('confirm_action_form', {
-            title: 'Unlock Game',
-            game: result,
-            errors: errors.array(),
-          });
+
+          // Successful: redirect to book detail page.
+          res.redirect(theGame.url);
         });
-      return;
-    }
-
-    // Data from form is valid. Update the record.
-    Game.findByIdAndUpdate(req.params.id, game, {}, (err, theGame) => {
-      if (err) {
-        return next(err);
-      }
-
-      // Successful: redirect to book detail page.
-      res.redirect(theGame.url);
-    });
+      });
   },
 ];

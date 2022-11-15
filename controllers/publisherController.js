@@ -305,43 +305,45 @@ exports.publisher_lock_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    const publisher = new Publisher({
-      isLocked: true,
-      name: req.body.name,
-      founded: req.body.founded,
-      defunct: req.body.defunct,
-      _id: req.params.id, //This is required, or a new ID will be assigned!
-    });
-
-    // if there are errors => re-render and display error message
-    if (!errors.isEmpty()) {
-      Publisher.findById(req.params.id).exec(function (err, result) {
-        if (err) {
-          return next(err);
-        }
-        res.render('confirm_action_form', {
-          title: 'Lock Publisher',
-          publisher: result,
-          errors: errors.array(),
-        });
-      });
-      return;
-    }
-
-    // Data from form is valid. Update the record.
-    Publisher.findByIdAndUpdate(
-      req.params.id,
-      publisher,
-      {},
-      (err, thePublisher) => {
-        if (err) {
-          return next(err);
-        }
-
-        // Successful: redirect to book detail page.
-        res.redirect(thePublisher.url);
+    Publisher.findById(req.params.id).exec(function (err, result) {
+      if (err) {
+        return next(err);
       }
-    );
+      const publisher = new Publisher({
+        isLocked: true,
+        name: req.body.name,
+        founded: req.body.founded,
+        defunct: req.body.defunct,
+        _id: req.params.id, //This is required, or a new ID will be assigned!
+      });
+      // if there are errors => re-render and display error message
+      if (!errors.isEmpty()) {
+        Publisher.findById(req.params.id).exec(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.render('confirm_action_form', {
+            title: 'Lock Publisher',
+            publisher: result,
+            errors: errors.array(),
+          });
+        });
+        return;
+      }
+      // Data from form is valid. Update the record.
+      Publisher.findByIdAndUpdate(
+        req.params.id,
+        publisher,
+        {},
+        (err, thePublisher) => {
+          if (err) {
+            return next(err);
+          }
+          // Successful: redirect to book detail page.
+          res.redirect(thePublisher.url);
+        }
+      );
+    });
   },
 ];
 
@@ -364,53 +366,53 @@ exports.publisher_unlock_post = [
       if (value !== env.lock_password) {
         throw new Error('Wrong password');
       }
-
       // Indicates the success of this synchronous custom validator
       return true;
     })
     .escape(),
-
   // Process request after validation and sanitization.
   (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    const publisher = new Publisher({
-      isLocked: false,
-      name: req.body.name,
-      founded: req.body.founded,
-      defunct: req.body.defunct,
-      _id: req.params.id, //This is required, or a new ID will be assigned!
-    });
-
-    // if there are errors => re-render and display error message
-    if (!errors.isEmpty()) {
-      Publisher.findById(req.params.id).exec(function (err, result) {
-        if (err) {
-          return next(err);
-        }
-        res.render('confirm_action_form', {
-          title: 'Unlock Publisher',
-          publisher: result,
-          errors: errors.array(),
-        });
-      });
-      return;
-    }
-
-    // Data from form is valid. Update the record.
-    Publisher.findByIdAndUpdate(
-      req.params.id,
-      publisher,
-      {},
-      (err, thePublisher) => {
-        if (err) {
-          return next(err);
-        }
-
-        // Successful: redirect to publisher detail page.
-        res.redirect(thePublisher.url);
+    Publisher.findById(req.params.id).exec(function (err, result) {
+      if (err) {
+        return next(err);
       }
-    );
+      const publisher = new Publisher({
+        isLocked: false,
+        name: req.body.name,
+        founded: req.body.founded,
+        defunct: req.body.defunct,
+        _id: req.params.id, //This is required, or a new ID will be assigned!
+      });
+      // if there are errors => re-render and display error message
+      if (!errors.isEmpty()) {
+        Publisher.findById(req.params.id).exec(function (err, result) {
+          if (err) {
+            return next(err);
+          }
+          res.render('confirm_action_form', {
+            title: 'Unlock Publisher',
+            publisher: result,
+            errors: errors.array(),
+          });
+        });
+        return;
+      }
+      // Data from form is valid. Update the record.
+      Publisher.findByIdAndUpdate(
+        req.params.id,
+        publisher,
+        {},
+        (err, thePublisher) => {
+          if (err) {
+            return next(err);
+          }
+          // Successful: redirect to publisher detail page.
+          res.redirect(thePublisher.url);
+        }
+      );
+    });
   },
 ];
