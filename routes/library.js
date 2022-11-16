@@ -10,11 +10,15 @@ const game_controller = require('../controllers/gameController');
 const publisher_controller = require('../controllers/publisherController');
 const genre_controller = require('../controllers/genreController');
 const year_controller = require('../controllers/yearController');
+const about_controller = require('../controllers/aboutController');
 
 /// GAME ROUTES ///
 
 // GET library home page.
 router.get('/', game_controller.index);
+
+// GET library home page.
+router.get('/about', about_controller.index);
 
 // GET request for creating a Game. NOTE This must come before routes that display Game (uses id).
 router.get('/game/create', game_controller.game_create_get);
