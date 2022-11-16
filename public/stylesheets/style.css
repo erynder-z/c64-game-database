@@ -2,6 +2,7 @@
   --c64_dark_blue: #50459b;
   --c64_light_blue: #887ecb;
   --c64_red: #9f4e44;
+  --c64_orange: #cb7e75;
   --c64_yellow: #c9d487;
   --c64_dark_grey: #626262;
   --c64_medium_grey: #898989;
@@ -9,6 +10,61 @@
   --c64_light_green: #9ae29b;
   --c64_dark_green: #5cab5e;
   --c64_pink: #a057a3;
+}
+
+.brand-logo {
+  display: flex !important;
+  align-items: center;
+  color: var(--c64_light_blue) !important;
+}
+
+.c64_logo_outline {
+  height: 1rem;
+  width: 3rem;
+  margin: 0 0.8rem 0 0.5rem;
+}
+
+.c64_logo_inner {
+  background: -webkit-linear-gradient(
+    top,
+    var(--c64_red) 11.1%,
+    var(--c64_dark_grey) 11.1%,
+    var(--c64_dark_grey) 22.4%,
+    var(--c64_orange) 22.4%,
+    var(--c64_orange) 33.3%,
+    var(--c64_dark_grey) 33.3%,
+    var(--c64_dark_grey) 44.4%,
+    var(--c64_yellow) 44.4%,
+    var(--c64_yellow) 55.6%,
+    var(--c64_dark_grey) 55.6%,
+    var(--c64_dark_grey) 66.7%,
+    var(--c64_dark_green) 66.7%,
+    var(--c64_dark_green) 77.8%,
+    var(--c64_dark_grey) 77.8%,
+    var(--c64_dark_grey) 88.9%,
+    var(--c64_light_blue) 88.9%,
+    var(--c64_light_blue) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--c64_red) 11.1%,
+    var(--c64_dark_grey) 11.1%,
+    var(--c64_dark_grey) 22.4%,
+    var(--c64_orange) 22.4%,
+    var(--c64_orange) 33.3%,
+    var(--c64_dark_grey) 33.3%,
+    var(--c64_dark_grey) 44.4%,
+    var(--c64_yellow) 44.4%,
+    var(--c64_yellow) 55.6%,
+    var(--c64_dark_grey) 55.6%,
+    var(--c64_dark_grey) 66.7%,
+    var(--c64_dark_green) 66.7%,
+    var(--c64_dark_green) 77.8%,
+    var(--c64_dark_grey) 77.8%,
+    var(--c64_dark_grey) 88.9%,
+    var(--c64_light_blue) 88.9%,
+    var(--c64_light_blue) 100%
+  );
 }
 
 .c64_dark_blue_background {
@@ -88,6 +144,7 @@ hr {
 
 .nav-wrapper {
   outline: solid 2px var(--c64_light_blue);
+  padding: 0 1rem;
 }
 
 .nav-wrapper ul {
@@ -286,6 +343,19 @@ ul.dropdown-content.select-dropdown li span:hover {
   color: var(--c64_dark_blue);
 }
 
+.about-container > h2 {
+  font-size: 2rem;
+}
+
+.about-container > h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.about-footer {
+  margin-top: 5rem;
+}
+
 @keyframes typing {
   from {
     width: 0;
@@ -349,6 +419,17 @@ ul.dropdown-content.select-dropdown li span:hover {
   white-space: nowrap;
   overflow: hidden;
   animation: typing 1.5s steps(11, end),
+    blink-caret 0.4s 1.5s step-end infinite alternate;
+}
+
+.typing-about {
+  font-family: C64_Pro_Mono-STYLE;
+  font-size: 4rem;
+  border-right: 4rem solid var(--c64_light_blue);
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 1.5s steps(6, end),
     blink-caret 0.4s 1.5s step-end infinite alternate;
 }
 
@@ -430,6 +511,10 @@ ul.dropdown-content.select-dropdown li span:hover {
 }
 
 @media only screen and (max-width: 599px) {
+  .nav-wrapper {
+    padding: unset;
+  }
+
   .content-wrapper {
     padding: 0.5rem;
   }
