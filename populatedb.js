@@ -65,6 +65,7 @@ function genreCreate(name, cb) {
 function gameCreate(
   title,
   publisher,
+  isLocked,
   genre,
   year,
   summary,
@@ -77,6 +78,8 @@ function gameCreate(
     title: title,
     publisher: publisher,
   };
+
+  if (isLocked != true) gamedetail.isLocked = false;
   if (genre != false) gamedetail.genre = genre;
   if (year != false) gamedetail.year = year;
   if (summary != false) gamedetail.summary = summary;
@@ -148,6 +151,7 @@ function createGames(cb) {
         gameCreate(
           'Summer Games',
           publishers[0],
+          false,
           [genres[2]],
           1984,
           'Compete in the summer olympics against the Computer or your friends and win the most gold medals.',
@@ -161,6 +165,7 @@ function createGames(cb) {
         gameCreate(
           'Test Drive',
           publishers[1],
+          false,
           [genres[1]],
           1987,
           "Street racing game. Get to the goal as fast as possible without crashing and dont't get caught by the police!",
@@ -174,6 +179,7 @@ function createGames(cb) {
         gameCreate(
           'Choplifter',
           publishers[2],
+          false,
           [genres[3], genres[4]],
           1987,
           'Control a helicopter and rescure your soldiers from the battlefield.',
@@ -187,7 +193,8 @@ function createGames(cb) {
         gameCreate(
           'Bruce Lee',
           publishers[3],
-          [genres[1]],
+          false,
+          [genres[0], genres[5]],
           1984,
           'Search and defeat the evil sorcerer while continuously fighting against Yamo and the black ninja.',
           false,
@@ -200,6 +207,7 @@ function createGames(cb) {
         gameCreate(
           'The Great Giana Sisters',
           publishers[4],
+          false,
           [genres[5]],
           1987,
           'Classic Jump and Run game like Super Mario Bros.',
@@ -213,6 +221,7 @@ function createGames(cb) {
         gameCreate(
           'Katakis',
           publishers[4],
+          false,
           [genres[0], genres[3]],
           1988,
           'Sidescrolling shmup with awesome music!',
@@ -226,6 +235,7 @@ function createGames(cb) {
         gameCreate(
           'Turrican',
           publishers[4],
+          false,
           [genres[0], genres[5]],
           1990,
           'Action-oriented jump and run. ',
