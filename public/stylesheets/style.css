@@ -267,13 +267,9 @@ hr {
   scrollbar-color: rebeccapurple green;
 }
 
-.content-wrapper.index,
-.content-wrapper.game_list,
-.content-wrapper.publisher_list,
-.game-container {
-  /*   display: flex;
-  flex-direction: column;
-  justify-content: center; */
+.game_card-image {
+  width: 320px;
+  height: 200px;
 }
 
 .index h1,
