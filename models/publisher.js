@@ -23,7 +23,7 @@ PublisherSchema.virtual('company_lifespan').get(function () {
   }
 
   if (this.founded && !this.defunct) {
-    return ` ( ${this.founded})`;
+    return ` (${this.founded}  - today)`;
   }
 
   if (!this.founded && !this.defunct) {

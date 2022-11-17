@@ -5,8 +5,11 @@
     <div class="app-container">
       <%- include('navbar') %> <%- include('fab') %>
       <div class="content-wrapper index c64_light_blue_text">
-        <h4><%= title %></h4>
-        <%- include("add_game_form-content") %>
+        <% if (title == "Update Game") { %>
+        <h4 class="typing-update-game"><%= title %></h4>
+        <% } else { %>
+        <h4 class="typing-add-game"><%= title %></h4>
+        <% } %> <%- include("add_game_form-content") %>
       </div>
     </div>
     <!--JavaScript at end of body for optimized loading-->
