@@ -157,7 +157,7 @@ exports.genre_delete_post = (req, res) => {
       }
       // Success
       if (results.genre_games.length > 0) {
-        // Genre has genre. Render in same way as for GET route.
+        // Genre has games. Render in same way as for GET route.
         res.render('genre_delete', {
           title: 'Delete Genre',
           genre: results.genre,
@@ -165,12 +165,12 @@ exports.genre_delete_post = (req, res) => {
         });
         return;
       }
-      // Genre has no books. Delete object and redirect to the list of genres.
+      // Genre has no games. Delete object and redirect to the list of genres.
       Genre.findByIdAndRemove(req.body.genreid, (err) => {
         if (err) {
           return next(err);
         }
-        // Success - go to author list
+        // Success - go to genre list
         res.redirect('/library/genres');
       });
     }
@@ -315,7 +315,7 @@ exports.genre_lock_post = [
           return next(err);
         }
 
-        // Successful: redirect to book detail page.
+        // Successful: redirect to game detail page.
         res.redirect(theGenre.url);
       });
     });
@@ -383,7 +383,7 @@ exports.genre_unlock_post = [
           return next(err);
         }
 
-        // Successful: redirect to publisher detail page.
+        // Successful: redirect to genre detail page.
         res.redirect(theGenre.url);
       });
     });

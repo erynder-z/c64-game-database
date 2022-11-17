@@ -185,7 +185,7 @@ exports.game_create_post = [
       if (err) {
         return next(err);
       }
-      // Successful: redirect to new book record.
+      // Successful: redirect to new game page.
       res.redirect(game.url);
     });
   },
@@ -225,7 +225,7 @@ exports.game_delete_post = (req, res) => {
       if (err) {
         return next(err);
       }
-      // Success. Delete object and redirect to the list of bookinstances.
+      // Success. Delete object and redirect to the list of games.
       Game.findByIdAndRemove(req.body.gameid, (err) => {
         if (err) {
           return next(err);
@@ -322,7 +322,7 @@ exports.game_update_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped/trimmed data and old id.
+    // Create a Game object with escaped/trimmed data and old id.
     const game = new Game({
       isLocked: false,
       title: req.body.title,
@@ -491,7 +491,7 @@ exports.game_lock_post = [
             return next(err);
           }
 
-          // Successful: redirect to book detail page.
+          // Successful: redirect to game detail page.
           res.redirect(theGame.url);
         });
       });
@@ -576,7 +576,7 @@ exports.game_unlock_post = [
             return next(err);
           }
 
-          // Successful: redirect to book detail page.
+          // Successful: redirect to game detail page.
           res.redirect(theGame.url);
         });
       });

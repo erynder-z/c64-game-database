@@ -9,7 +9,7 @@ const PublisherSchema = new Schema({
   defunct: { type: Number },
 });
 
-// Virtual for author's URL
+// Virtual for publisher's URL
 PublisherSchema.virtual('url').get(function () {
   return `/library/publisher/${this._id}`;
 });

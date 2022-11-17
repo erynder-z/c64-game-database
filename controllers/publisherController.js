@@ -89,10 +89,10 @@ exports.publisher_create_post = [
       }
 
       if (found_publisher) {
-        // Author exists, redirect to its detail page.
+        // Publisher exists, redirect to its detail page.
         res.redirect(found_publisher.url);
       } else {
-        // Create an Author object with escaped and trimmed data.
+        // Create an Publisher object with escaped and trimmed data.
         const publisher = new Publisher({
           isLocked: true,
           name: req.body.publisherName,
@@ -103,7 +103,7 @@ exports.publisher_create_post = [
           if (err) {
             return next(err);
           }
-          // Successful - redirect to new author record.
+          // Successful - redirect to new publisher record.
           res.redirect(publisher.url);
         });
       }
@@ -269,7 +269,7 @@ exports.publisher_update_post = [
           return next(err);
         }
 
-        // Successful: redirect to book detail page.
+        // Successful: redirect to publisher detail page.
         res.redirect(thePublisher.url);
       }
     );
@@ -339,7 +339,7 @@ exports.publisher_lock_post = [
           if (err) {
             return next(err);
           }
-          // Successful: redirect to book detail page.
+          // Successful: redirect to publisher detail page.
           res.redirect(thePublisher.url);
         }
       );

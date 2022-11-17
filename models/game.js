@@ -17,7 +17,7 @@ const GameSchema = new Schema({
   },
 });
 
-// Virtual for book's URL
+// Virtual for game's URL
 GameSchema.virtual('url').get(function () {
   return `/library/game/${this._id}`;
 });
