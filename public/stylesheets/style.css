@@ -139,6 +139,11 @@ hr {
   border-color: var(--c64_light_blue);
 }
 
+.database-stats,
+.system-stats {
+  padding-top: 1rem;
+}
+
 .card-content h2 {
   font-size: 1.5rem;
 }
@@ -386,6 +391,7 @@ ul.dropdown-content.select-dropdown li span:hover {
 
 .action-btn:hover {
   color: var(--c64_light_green);
+  cursor: pointer;
 }
 
 .error-msg {
