@@ -318,6 +318,7 @@ hr {
 
 .styled-btn {
   font-family: C64_Pro-STYLE;
+  width: 10rem;
 }
 
 input,
@@ -377,6 +378,18 @@ ul.dropdown-content.select-dropdown li span:hover {
 
 .about-footer {
   margin-top: 5rem;
+}
+
+.action-btn {
+  all: unset;
+}
+
+.action-btn:hover {
+  color: var(--c64_light_green);
+}
+
+.error-msg {
+  text-align: center;
 }
 
 @keyframes typing {
