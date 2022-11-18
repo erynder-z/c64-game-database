@@ -4,6 +4,8 @@ const async = require('async');
 const Game = require('../models/game');
 const Publisher = require('../models/publisher');
 
+const thisYear = new Date().getFullYear();
+
 // Display list of all Publishers.
 exports.publisher_list = (req, res, next) => {
   Publisher.find()
@@ -65,6 +67,10 @@ exports.publisher_create_post = [
     .isLength({ min: 1 })
     .escape()
     .withMessage('Name must be specified.'),
+  body('founded', 'The future is now?')
+    .trim()
+    .isFloat({ min: 1950, max: thisYear })
+    .escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
@@ -235,6 +241,10 @@ exports.publisher_update_post = [
     .isLength({ min: 1 })
     .escape()
     .withMessage('Name must be specified.'),
+  body('founded', 'The future is now?')
+    .trim()
+    .isFloat({ min: 1950, max: thisYear })
+    .escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {

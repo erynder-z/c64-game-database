@@ -5,6 +5,8 @@ const Publisher = require('../models/publisher');
 const Genre = require('../models/genre');
 const async = require('async');
 
+const thisYear = new Date().getFullYear();
+
 exports.index = (req, res) => {
   async.parallel(
     {
@@ -119,6 +121,10 @@ exports.game_create_post = [
   body('publisher', 'Publisher must not be empty.')
     .trim()
     .isLength({ min: 1 })
+    .escape(),
+  body('year', 'The future is now?')
+    .trim()
+    .isFloat({ min: 1970, max: thisYear })
     .escape(),
   body('summary', 'Summary must not be empty.')
     .trim()
@@ -310,6 +316,10 @@ exports.game_update_post = [
   body('publisher', 'Publisher must not be empty.')
     .trim()
     .isLength({ min: 1 })
+    .escape(),
+  body('year', 'The future is now?')
+    .trim()
+    .isFloat({ min: 1970, max: thisYear })
     .escape(),
   body('summary', 'Summary must not be empty.')
     .trim()
