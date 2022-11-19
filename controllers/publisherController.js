@@ -68,6 +68,12 @@ exports.publisher_create_post = [
     .escape()
     .withMessage('Name must be specified.'),
   body('founded', 'The future is now?')
+    .optional({ checkFalsy: true })
+    .trim()
+    .isFloat({ min: 1950, max: thisYear })
+    .escape(),
+  body('defunct', 'The future is now?')
+    .optional({ checkFalsy: true })
     .trim()
     .isFloat({ min: 1950, max: thisYear })
     .escape(),
@@ -242,6 +248,12 @@ exports.publisher_update_post = [
     .escape()
     .withMessage('Name must be specified.'),
   body('founded', 'The future is now?')
+    .optional({ checkFalsy: true })
+    .trim()
+    .isFloat({ min: 1950, max: thisYear })
+    .escape(),
+  body('defunct', 'The future is now?')
+    .optional({ checkFalsy: true })
     .trim()
     .isFloat({ min: 1950, max: thisYear })
     .escape(),

@@ -123,6 +123,7 @@ exports.game_create_post = [
     .isLength({ min: 1 })
     .escape(),
   body('year', 'The future is now?')
+    .optional({ checkFalsy: true })
     .trim()
     .isFloat({ min: 1970, max: thisYear })
     .escape(),
@@ -318,6 +319,7 @@ exports.game_update_post = [
     .isLength({ min: 1 })
     .escape(),
   body('year', 'The future is now?')
+    .optional({ checkFalsy: true })
     .trim()
     .isFloat({ min: 1970, max: thisYear })
     .escape(),
